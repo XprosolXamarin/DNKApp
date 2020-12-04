@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:ViewModels="clr-namespace:DNKApp.ViewModels"
+             x:Class="DNKApp.Views.SplashPage"
+             NavigationPage.HasNavigationBar="False">
+    <ContentPage.BindingContext>
+        <ViewModels:SplashViewModel/>
+    </ContentPage.BindingContext>
+    <ContentPage.Content>
+        <StackLayout  VerticalOptions="Center" Spacing="-3"
+                      HorizontalOptions="Center" >
+            <Image Source="logo.png" HeightRequest="150"
+                   WidthRequest="150"/>
+            <Label Text="WELCOME TO" CharacterSpacing="2" FontFamily="ThemeFont"
+                   HorizontalTextAlignment="Center"/>
+            <Label  
+                    TextColor="Black"
+                   HorizontalTextAlignment="Center" >
+                <Label.FormattedText>
+                    <FormattedString>
+                        <FormattedString.Spans>
+                            <Span Text="DNK " CharacterSpacing="2" FontFamily="ThemeFontBold" FontSize="Large"/>
+                            <Span Text="Store" CharacterSpacing="2" FontFamily="ThemeFontMedium" FontSize="Large"/>
+                        </FormattedString.Spans>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
