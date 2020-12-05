@@ -1,23 +1,64 @@
 ﻿using DNKApp.Models;
+using DNKApp.Services;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
 using System.Text;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Timers;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace DNKApp.ViewModels
 {
-    public class ShopPageViewModel
+    public class ShopPageViewModel:BaseViewModel
     {
+
+
+        public ObservableCollection<Product> _CollectionsList { get; set; }
+        public ObservableCollection<Product> CollectionsList
+        {
+            get { return _CollectionsList; }
+            set
+            {
+                _CollectionsList = value;
+
+                OnPropertyChanged();
+            }
+        }
         private INavigation navigation;
-        
+        private readonly ItemsListApi _itemlistapi;
         public List<Banner> Banners { get => GetBanners(); }
-        public List<Product> CollectionsList { get => GetCollections(); }
+        //public ObservableCollection<Product> CollectionsList { get; set; }
+        //public List<Product> CollectionsList { get => GetCollections(); }
         public List<Product> TrendsList { get => GetTrends(); }
         public ShopPageViewModel(INavigation navigation)
         {
             this.navigation = navigation;
+            _itemlistapi = new ItemsListApi();
+            _ = GetListOfItemsAsync();
+        }
+        private async Task GetListOfItemsAsync()
+        {
+            //Isbusy = true;
+
+            CollectionsList = new ObservableCollection<Product>();
+            var current = Connectivity.NetworkAccess;
+
+            if (current == NetworkAccess.Internet)
+            {
+                CollectionsList = await _itemlistapi.GetListofItems();
+                 
+               // Isbusy = false;
+            }
+            else
+            {
+                await Application.Current.MainPage.DisplayAlert("", "Please Connect with Internet.", "ok");
+                //Isbusy = false;
+            }
+
         }
         private List<Banner> GetBanners()
         {
@@ -28,14 +69,26 @@ namespace DNKApp.ViewModels
             return bannerList;
         }
 
-        private List<Product> GetCollections()
-        {
-            var trendList = new List<Product>();
-            trendList.Add(new Product { Image = "floral.png", ProductName = "Floral Bag + Hat", Price = "$123.50" });
-            trendList.Add(new Product { Image = "satchel.png", ProductName = "Satchel Bag", Price = "$49.99" });
-            trendList.Add(new Product { Image = "leatherBag.png", ProductName = "Leather Bag", Price = "$40.99" });
-            return trendList;
-        }
+        //private void GetCollections()
+        //{
+        //    var ite = (from c in CollectionsList
+
+        //               select new Product
+        //               {
+        //                   id = c.id,
+        //                   Image = c.images[0].src,
+        //                   Price=c.Price,
+        //                   name=c.name,
+        //               }).FirstOrDefault();
+            
+        //    CollectionsList.Add(ite);
+            
+        //    //var trendList = new List<Product>();
+        //    //trendList.Add(new Product { Image = "floral.png", ProductName = "Floral Bag + Hat", Price = "$123.50" });
+        //    //trendList.Add(new Product { Image = "satchel.png", ProductName = "Satchel Bag", Price = "$49.99" });
+        //    //trendList.Add(new Product { Image = "leatherBag.png", ProductName = "Leather Bag", Price = "$40.99" });
+        //    //return trendList;
+        //}
 
         private List<Product> GetTrends()
         {
