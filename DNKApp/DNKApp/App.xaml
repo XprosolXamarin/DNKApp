@@ -4,6 +4,10 @@
              x:Class="DNKApp.App">
     <Application.Resources>
         <ResourceDictionary>
+
+            <Color x:Key="NormalColor">#530100</Color>
+                <Color x:Key="seperatorGrey">#E6E6E6</Color>
+           
             <OnPlatform x:TypeArguments="x:String" x:Key="PlayfairBold">
                 <On Platform="Android" Value="PlayfairDisplay-Bold.ttf#Playfair Display Bold" />
                 <On Platform="iOS" Value="PlayfairDisplay-Bold" />

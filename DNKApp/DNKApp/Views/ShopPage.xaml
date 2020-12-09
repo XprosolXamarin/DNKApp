@@ -8,6 +8,7 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
+           
         </Grid.RowDefinitions>
         <cv:CarouselViewControl x:Name="cvBanners" ShowIndicators="true" IndicatorsShape="Circle" IndicatorsTintColor="LightGray"
                                     CurrentPageIndicatorTintColor="Red" Orientation="Horizontal" InterPageSpacing="0" 
@@ -32,44 +33,59 @@
         </cv:CarouselViewControl>
         <StackLayout Grid.Row="1" Orientation="Horizontal" HorizontalOptions="End" Margin="30,20">
             <ImageButton Source="fav.png" Aspect="AspectFit" HeightRequest="32" WidthRequest="30" VerticalOptions="Center"/>
-            <ImageButton Source="cartFilled.png" Aspect="AspectFit" HeightRequest="32" WidthRequest="30" VerticalOptions="Center"/>
+            <ImageButton Source="cartFilled.png" Command="{Binding CartView}" Aspect="AspectFit" HeightRequest="32" WidthRequest="30" VerticalOptions="Center"/>
+            
         </StackLayout>
-        <CollectionView ItemsSource="{Binding CollectionsList}">
-            <CollectionView.EmptyView>
-                <Label
-                    Text="Your cart is empty"
-                    VerticalTextAlignment="Center"
-                    HorizontalTextAlignment="Center"/>
-            </CollectionView.EmptyView>
-            <CollectionView.ItemsLayout>
-                <GridItemsLayout VerticalItemSpacing="5"  Orientation="Horizontal"/>
-            </CollectionView.ItemsLayout>
-            <CollectionView.ItemTemplate>
-                <DataTemplate>
-                    <!--<Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="1*"/>
-                            <RowDefinition Height="1*"/>
-                            <RowDefinition Height="1*"/>
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="200"/>
-                        </Grid.ColumnDefinitions>
-                        
-                    </Grid>-->
-                    <Grid RowSpacing="20" Margin="30,0,0,0" HorizontalOptions="FillAndExpand" VerticalOptions="Start">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                        </Grid.RowDefinitions>
-                        <Label Text="Collections" TextColor="Black" FontSize="20" FontFamily="{StaticResource BoldFont}"/>
-                        <Label Text="Show all" TextColor="Black" FontSize="14" VerticalOptions="Center" Opacity="0.5" HorizontalOptions="End" Margin="0,0,30,0"/>
-                        <ScrollView Orientation="Horizontal" Grid.Row="1" VerticalOptions="Start" VerticalScrollBarVisibility="Never" HorizontalScrollBarVisibility="Never">
-                            <StackLayout  VerticalOptions="Start">
-                                <BindableLayout.ItemTemplate>
-                                    <DataTemplate>
-                                        <StackLayout VerticalOptions="Start">
+
+        <StackLayout Grid.Row="2">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+
+                </Grid.RowDefinitions>
+                <StackLayout Grid.Row="0" Orientation="Horizontal" Margin="30,0,30,0">
+                    <Label Text="Collections" TextColor="Black" FontSize="20" FontFamily="{StaticResource BoldFont}"/>
+                    <Label Text="Show all" TextColor="Black" FontSize="14" VerticalOptions="Center" Opacity="0.5" HorizontalOptions="EndAndExpand" />
+                </StackLayout>
+                <StackLayout BackgroundColor="White" Grid.Row="1" Padding="0" Margin="30,0">
+                    <!-- Use your own layout and functionality here! -->
+                    <CollectionView x:Name="collectionList" Margin="0" 
+                                    ItemsSource="{Binding CollectionsList,Mode=TwoWay}"
+                                    >
+                        <CollectionView.ItemsLayout>
+                            <GridItemsLayout HorizontalItemSpacing="20"  Orientation="Horizontal" />
+                        </CollectionView.ItemsLayout>
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <Grid RowSpacing="3">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+                                    <Frame Grid.Row="0" Padding="0" HasShadow="False"  HorizontalOptions="Start" VerticalOptions="Start" CornerRadius="10" HeightRequest="150" WidthRequest="150">
+                                        <Image Source="{Binding images[0].src, Mode=TwoWay}" Aspect="Fill" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"/>
+                                        <Frame.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding Path=BindingContext.Preview, Source={x:Reference collectionList}, Mode=TwoWay}" CommandParameter="{Binding}"/>
+                                        </Frame.GestureRecognizers>
+                                    </Frame>
+                                    <Label Grid.Row="1" Text="{Binding name, Mode=TwoWay}" TextColor="Black" FontSize="15" FontFamily="ThemeFontBold" MaxLines="2" />
+                                    <Label Grid.Row="2" Text="{Binding categories[0].name, Mode=TwoWay}" TextColor="Black" FontSize="12" />
+                                    <Label Grid.Row="3"  TextColor="#62153B" FontSize="12" FontFamily="ThemeFontBold">
+                                        <Label.FormattedText>
+                                            <FormattedString>
+                                                <FormattedString.Spans>
+                                                    <Span Text="RS:"/>
+                                                    <Span Text="{Binding Price, Mode=TwoWay}"/>
+                                                    <Span Text=".00/"/>
+                                                </FormattedString.Spans>
+                                            </FormattedString>
+                                        </Label.FormattedText>
+                                    </Label>
+                                </Grid>
+                                <!--<StackLayout VerticalOptions="Start">
                                             <Frame Padding="0" HasShadow="False"  HorizontalOptions="Start" VerticalOptions="Start" CornerRadius="10" HeightRequest="150" WidthRequest="150">
                                                 <Image Source="{Binding images[0].src, Mode=TwoWay}" Aspect="Fill" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"/>
                                             </Frame>
@@ -86,85 +102,14 @@
                                                     </FormattedString>
                                                 </Label.FormattedText>
                                             </Label>
-                                        </StackLayout>
-                                    </DataTemplate>
-                                </BindableLayout.ItemTemplate>
-                            </StackLayout>
-                        </ScrollView>
-                    </Grid>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
-        <ScrollView Grid.Row="2" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
-            <Grid RowSpacing="30" HorizontalOptions="FillAndExpand" VerticalOptions="StartAndExpand">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                </Grid.RowDefinitions>
-                <Grid RowSpacing="20" Margin="30,0,0,0" HorizontalOptions="FillAndExpand" VerticalOptions="Start">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                    </Grid.RowDefinitions>
-                    <Label Text="Collections" TextColor="Black" FontSize="20" FontFamily="{StaticResource BoldFont}"/>
-                    <Label Text="Show all" TextColor="Black" FontSize="14" VerticalOptions="Center" Opacity="0.5" HorizontalOptions="End" Margin="0,0,30,0"/>
-                    <ScrollView Orientation="Horizontal" Grid.Row="1" VerticalOptions="Start" VerticalScrollBarVisibility="Never" HorizontalScrollBarVisibility="Never">
-                        <StackLayout BindableLayout.ItemsSource="{Binding CollectionsList}" Orientation="Horizontal" Spacing="20" VerticalOptions="Start">
-                            <BindableLayout.ItemTemplate>
-                                <DataTemplate>
-                                    <StackLayout VerticalOptions="Start">
-                                        <Frame Padding="0" HasShadow="False"  HorizontalOptions="Start" VerticalOptions="Start" CornerRadius="10" HeightRequest="150" WidthRequest="150">
-                                            <Image Source="{Binding images[0].src, Mode=TwoWay}" Aspect="Fill" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"/>
-                                        </Frame>
-                                        <Label Text="{Binding name, Mode=TwoWay}" TextColor="Black" FontSize="15" FontFamily="ThemeFontBold" MaxLines="2"/>
-                                        <Label Text="{Binding categories[0].name, Mode=TwoWay}" TextColor="Black" FontSize="12" />
-                                        <Label   TextColor="#62153B" FontSize="12" FontFamily="ThemeFontBold">
-                                            <Label.FormattedText>
-                                                <FormattedString>
-                                                    <FormattedString.Spans>
-                                                        <Span Text="RS:"/>
-                                                        <Span Text="{Binding Price, Mode=TwoWay}"/>
-                                                        <Span Text=".00/"/>
-                                                    </FormattedString.Spans>
-                                                </FormattedString>
-                                            </Label.FormattedText>
-                                        </Label>
-                                    </StackLayout>
-                                </DataTemplate>
-                            </BindableLayout.ItemTemplate>
-                        </StackLayout>
-                    </ScrollView>
-                </Grid>
-                <Grid Grid.Row="1" RowSpacing="20" Margin="30,0,0,30" HorizontalOptions="FillAndExpand" VerticalOptions="Start">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                    </Grid.RowDefinitions>
-                    <Label Text="New Trends" TextColor="Black" FontSize="20" FontFamily="{StaticResource BoldFont}"/>
-                    <Label Text="Show all" TextColor="Black" FontSize="14" VerticalOptions="Center" Opacity="0.5" HorizontalOptions="End" Margin="0,0,30,0"/>
-                    <ScrollView Orientation="Horizontal" Grid.Row="1" VerticalOptions="Start" VerticalScrollBarVisibility="Never" HorizontalScrollBarVisibility="Never">
-                        <StackLayout Orientation="Horizontal" BindableLayout.ItemsSource="{Binding TrendsList}" Spacing="15" VerticalOptions="Start">
-                            <BindableLayout.ItemTemplate>
-                                <DataTemplate>
-                                    <StackLayout Orientation="Horizontal" Spacing="10" VerticalOptions="Start" WidthRequest="220">
-                                        <Frame Padding="0" HasShadow="False" HorizontalOptions="Start" VerticalOptions="Start" CornerRadius="10" HeightRequest="90" WidthRequest="70">
-                                            <Image Source="{Binding Image}" Aspect="Fill" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"/>
-                                        </Frame>
-                                        <StackLayout Margin="0,12,0,0">
-                                            <Label Text="{Binding ProductName}" TextColor="Black" FontSize="15" />
-                                            <Label Text="{Binding Price}" Margin="0,-7,0,0" TextColor="#62153B" FontSize="12" FontFamily="{StaticResource BoldFont}"/>
-                                            <StackLayout Orientation="Horizontal" Margin="0,15,0,0">
-                                                <Image Source="add.png" Aspect="Fill" VerticalOptions="Center" WidthRequest="15" HeightRequest="15"/>
-                                                <Label Text="ADD TO CART" TextColor="Black" FontSize="10" Opacity="0.6" VerticalOptions="Center"/>
-                                            </StackLayout>
-                                        </StackLayout>
-                                    </StackLayout>
-                                </DataTemplate>
-                            </BindableLayout.ItemTemplate>
-                        </StackLayout>
-                    </ScrollView>
-                </Grid>
+                                        </StackLayout>-->
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+
+                    </CollectionView>
+                </StackLayout>
             </Grid>
-        </ScrollView>
+        </StackLayout>
+       
     </Grid>
 </ContentPage>

@@ -1,5 +1,7 @@
 ﻿using DNKApp.Models;
 using DNKApp.Services;
+using DNKApp.Views;
+using Rg.Plugins.Popup.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -15,6 +17,30 @@ namespace DNKApp.ViewModels
 {
     public class ShopPageViewModel:BaseViewModel
     {
+        private bool _Isbusy;
+        public bool Isbusy
+        {
+            get
+            {
+                return _Isbusy;
+            }
+            set
+            {
+                _Isbusy = value;
+                if (_Isbusy)
+                {
+                    navigation.PushPopupAsync(new IndicatorActity());
+
+                }
+                else
+                {
+                    navigation.PopPopupAsync();
+
+                }
+
+                OnPropertyChanged();
+            }
+        }
 
 
         public ObservableCollection<Product> _CollectionsList { get; set; }
@@ -38,7 +64,9 @@ namespace DNKApp.ViewModels
         {
             this.navigation = navigation;
             _itemlistapi = new ItemsListApi();
+            Isbusy = true;
             _ = GetListOfItemsAsync();
+            
         }
         private async Task GetListOfItemsAsync()
         {
@@ -51,12 +79,12 @@ namespace DNKApp.ViewModels
             {
                 CollectionsList = await _itemlistapi.GetListofItems();
                  
-               // Isbusy = false;
+                Isbusy = false;
             }
             else
             {
                 await Application.Current.MainPage.DisplayAlert("", "Please Connect with Internet.", "ok");
-                //Isbusy = false;
+                Isbusy = false;
             }
 
         }
@@ -97,6 +125,26 @@ namespace DNKApp.ViewModels
             colList.Add(new Product { Image = "dressShoe.png", ProductName = "Shoe + Addons", Price = "$225.99" });
             return colList;
         }
-       
+        public Command<Product> Preview
+        {
+            get
+            {
+                return  new Command<Product>((Product product) =>
+                {
+                    navigation.PushAsync(new PreviewPage(product.name, product.images[0], product.Price, product.LongDescription, product.categories[0], product.description));
+                });
+            }
+        }
+        public Command CartView
+        {
+            get
+            {
+                return new Command(() =>
+                {
+                    navigation.PushAsync(new CartViewPage());
+                });
+            }
+        }
+
     }
 }
