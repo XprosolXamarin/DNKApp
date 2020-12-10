@@ -15,7 +15,7 @@ namespace DNKApp.Views
     public partial class PreviewPage : ContentPage
     {
         
-        public PreviewPage(string name, Models.ImageSource imageSource, string price, string longDescription, CategoryName categoryName, string description)
+        public PreviewPage(string name, Models.ImageSource imageSource, int price, string longDescription, CategoryName categoryName, string description)
         {
             InitializeComponent();
             BindingContext = new PreviewPageViewModel(name, imageSource, price, longDescription, categoryName, description);

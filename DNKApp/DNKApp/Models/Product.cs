@@ -16,6 +16,7 @@ namespace DNKApp.Models
         public string ShortDescription { get; set; }
         public string LongDescription { get; set; }
         public string Price { get; set; }
+        public int FPrice => Convert.ToInt32(value: Price);
         public ObservableCollection<ImageSource> images { get; set; }
         public string Image { get; set; }
         public int? BrandId { get; set; }

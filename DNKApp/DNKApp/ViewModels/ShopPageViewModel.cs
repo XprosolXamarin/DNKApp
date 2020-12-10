@@ -42,7 +42,7 @@ namespace DNKApp.ViewModels
             }
         }
 
-
+        public List<Category> MyCollections { get => GetCollections(); }
         public ObservableCollection<Product> _CollectionsList { get; set; }
         public ObservableCollection<Product> CollectionsList
         {
@@ -67,6 +67,14 @@ namespace DNKApp.ViewModels
             Isbusy = true;
             _ = GetListOfItemsAsync();
             
+        }
+         private List<Category> GetCollections()
+        {
+            var colList = new List<Category>();
+            colList.Add(new Category { Image = "watches.png", Title = "MEN'S WRISTWATCHES" });
+            colList.Add(new Category { Image = "minidress.png", Title = "WOMEN'S MINI DRESSES" });
+            colList.Add(new Category { Image = "coats.png", Title = "WOMEN'S COATS" });
+            return colList;
         }
         private async Task GetListOfItemsAsync()
         {
@@ -131,7 +139,7 @@ namespace DNKApp.ViewModels
             {
                 return  new Command<Product>((Product product) =>
                 {
-                    navigation.PushAsync(new PreviewPage(product.name, product.images[0], product.Price, product.LongDescription, product.categories[0], product.description));
+                    navigation.PushAsync(new PreviewPage(product.name, product.images[0], product.FPrice, product.LongDescription, product.categories[0], product.description));
                 });
             }
         }
@@ -145,6 +153,50 @@ namespace DNKApp.ViewModels
                 });
             }
         }
+        public Command Mens
+        {
+            get
+            {
+                return new Command(() =>
+                {
+                    navigation.PushAsync(new CartViewPage());
+                });
+            }
+        }
+        public Command Womens
+        {
+            get
+            {
+                return new Command(() =>
+                {
+                    int a = 41;
+                    _ =GetCatgory(a);
+                });
+            }
+        }
+
+        private object GetCatgory(int a)
+        {
+            var ite = (from c in CollectionsList
+                       where c.categories[0].id == a
+                       select new clsInvoice
+                       {
+
+                       });
+            return 0;
+        }
+
+        public Command Childern
+        {
+            get
+            {
+                return new Command(() =>
+                {
+                    navigation.PushAsync(new CartViewPage());
+                });
+            }
+        }
+
 
     }
 }

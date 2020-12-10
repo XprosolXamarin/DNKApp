@@ -36,8 +36,8 @@ namespace DNKApp.ViewModels
             }
         }
         
-        private string _price;
-        public string price
+        private int _price;
+        public int price
         {
             get { return _price; }
             set
@@ -122,7 +122,7 @@ namespace DNKApp.ViewModels
         }
         
         private SQLiteAsyncConnection _connection;
-        public PreviewPageViewModel(string name, ImageSource imageSource, string price, string longDescription, CategoryName categoryName, string description)
+        public PreviewPageViewModel(string name, ImageSource imageSource, int price, string longDescription, CategoryName categoryName, string description)
         {
             this.name = name;
             this.imageSource = imageSource;
@@ -170,7 +170,7 @@ namespace DNKApp.ViewModels
                 {
 
                     //Xamarin.Forms.DependencyService.Get<ISQLite>().GetConnectionWithCreateDatabase();
-                    var invoice = new clsInvoice { ProductName = name, Price = price, Qty=Qty,imagepath=img };
+                    var invoice = new clsInvoice { ProductName = name, SRate = price, Qty=Qty,imagepath=img };
                     var abc=await _connection.InsertAsync(invoice);
                    
 
