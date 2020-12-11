@@ -39,21 +39,22 @@ namespace DNKApp.ViewModels
         private INavigation navigation;
        
         private SQLiteAsyncConnection _connection;
-        public List<clsInvoice> _invoice { get; set; }
-        public List<clsInvoice> invoice
+        public List<clsInvoice> _myCollection;
+        public List<clsInvoice> myCollection
         {
             get
             {
-                return _invoice;
+                return _myCollection;
             }
             set
             {
-                _invoice = value;
+                _myCollection = value;
                 OnPropertyChanged();
 
 
             }
         }
+        public ObservableCollection<clsInvoice> invoice { get; set; }
         public  CartViewModel(INavigation navigation)
         {
             this.navigation = navigation;
@@ -66,7 +67,8 @@ namespace DNKApp.ViewModels
         {
             try
             {
-                invoice = await _connection.Table<clsInvoice>().ToListAsync();
+                myCollection = await _connection.Table<clsInvoice>().ToListAsync();
+                invoice = new ObservableCollection<clsInvoice>(myCollection);
                 TBill = invoice.Sum(s => s.SRate);
                
             }
@@ -105,9 +107,13 @@ namespace DNKApp.ViewModels
                 return new Command<clsInvoice>(async(clsInvoice p) =>
                 {
                     p.Qty++;
-                    var a = invoice[p.ID];
-                    await _connection.UpdateAsync(a);
-                    
+                    p.SRate = p.FRate * p.Qty;
+                    TBill = invoice.Sum(s => s.SRate);
+                    var invoiceU = new clsInvoice { id = p.id, ProductName = p.ProductName, SRate = p.SRate, FRate = p.FRate, Qty = p.Qty, imagepath = p.imagepath };
+                    var abc = await _connection.UpdateAsync(invoiceU);
+                    // var a = invoice[p.ID];
+                    // await _connection.UpdateAsync(a);
+
                     //int m = Convert.ToInt32(p.Price);
                     // total.TBill = invoice.Sum(s => s.Price);
                 });
@@ -119,9 +125,30 @@ namespace DNKApp.ViewModels
             {
                 return new Xamarin.Forms.Command<clsInvoice>(async(clsInvoice p) =>
                 {
-                    p.Qty--;
-                    TBill = invoice.Sum(s => s.SRate);
-                   await _connection.UpdateAsync(p);
+                    p.Qty -= 1;
+                    if (p.Qty == 1)
+                    {
+                        p.SRate = p.FRate;
+                        TBill = invoice.Sum(s => s.SRate);
+                    }
+                    else
+                    {
+                        TBill = TBill - p.FRate;
+
+                        
+                        p.SRate = p.SRate - p.FRate;
+                        TBill = invoice.Sum(s => s.SRate);
+                    }
+                    //var abc= _connection.Table<clsInvoice>().Where(x => x.ID == p.ID ).ToListAsync();
+
+
+                    var invoiceU = new clsInvoice {id = p.id, ProductName = p.ProductName, SRate = p.SRate, FRate = p.FRate, Qty = p.Qty, imagepath = p.imagepath };
+                    var abc = await _connection.UpdateAsync(invoiceU);
+
+
+                    // p.Qty--;
+                    // TBill = invoice.Sum(s => s.SRate);
+                    // await _connection.UpdateAsync(p);
                 });
             }
         }
@@ -131,13 +158,15 @@ namespace DNKApp.ViewModels
             {
                 return new Command<clsInvoice>(async(clsInvoice p) =>
                 {
-                    //invoice.Remove(p);
-                    int b = p.ID--;
-                    var a = invoice[b];
-                   await _connection.DeleteAsync(a);
+
+                     //int b = --p.productId;
+                    
+                    await _connection.DeleteAsync(p);
+                    invoice.Remove(p);
                     //Items.Remove(product);
                     //Total.TBill = Total.TBill - product.SRate;
                     //Total.TCount--;
+
                 });
             }
         }

@@ -7,8 +7,8 @@ namespace DNKApp.Models
 {
     public class Product
     {
-        public int? productId { get; set; }
-        public int? id { get; set; }
+        public int productId { get; set; }
+        public int id { get; set; }
         public string name { get; set; }
         public string ProductName { get; set;}
         public string description { get; set;}

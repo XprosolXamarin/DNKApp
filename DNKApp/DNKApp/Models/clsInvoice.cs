@@ -9,8 +9,8 @@ namespace DNKApp.Models
     public class clsInvoice : BaseViewModel
 
     {
-        [PrimaryKey, AutoIncrement]
-        public int ID { get; set; }
+        [PrimaryKey]
+        public int id { get; set; }
         public string ProductName { get; set; }
        
         private int _SRate;

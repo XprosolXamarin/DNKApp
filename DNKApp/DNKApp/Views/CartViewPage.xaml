@@ -120,7 +120,7 @@
                                             <FormattedString>
                                                 <FormattedString.Spans>
                                                     <Span Text="Rs: " />
-                                                    <Span Text="{Binding Price}" FontAttributes="Bold"/>
+                                                    <Span Text="{Binding SRate}" FontAttributes="Bold"/>
                                                     <Span Text="/-"/>
                                                 </FormattedString.Spans>
                                             </FormattedString>

@@ -107,6 +107,19 @@ namespace DNKApp.ViewModels
                 OnPropertyChanged();
             }
         }
+        private int _id;
+        public int id
+        {
+            get
+            {
+                return _id;
+            }
+            set
+            {
+                _id = value;
+                OnPropertyChanged();
+            }
+        }
         private List<clsInvoice> _Cartlst;
         public List<clsInvoice> Cartlst
         {
@@ -122,8 +135,9 @@ namespace DNKApp.ViewModels
         }
         
         private SQLiteAsyncConnection _connection;
-        public PreviewPageViewModel(string name, ImageSource imageSource, int price, string longDescription, CategoryName categoryName, string description)
+        public PreviewPageViewModel(int id, string name, ImageSource imageSource, int price, string longDescription, CategoryName categoryName, string description)
         {
+            this.id = id;
             this.name = name;
             this.imageSource = imageSource;
             this.price = price;
@@ -162,15 +176,16 @@ namespace DNKApp.ViewModels
             }
         }
        
-        public Xamarin.Forms.Command AddtoCart
+        public Xamarin.Forms.Command<clsInvoice> AddtoCart
         {
             get
             {
-                return new Xamarin.Forms.Command(async () =>
+                return new Xamarin.Forms.Command<clsInvoice>(async (clsInvoice _clsInvoice) =>
                 {
+                    
 
                     //Xamarin.Forms.DependencyService.Get<ISQLite>().GetConnectionWithCreateDatabase();
-                    var invoice = new clsInvoice { ProductName = name, SRate = price, Qty=Qty,imagepath=img };
+                    var invoice = new clsInvoice {id=id, ProductName = name, SRate = price,FRate=price, Qty=Qty,imagepath=img };
                     var abc=await _connection.InsertAsync(invoice);
                    
 
@@ -195,7 +210,7 @@ namespace DNKApp.ViewModels
                     //    Qty = Qty,
                     //    Price=price,
                     //});
-                    Xamarin.Forms.Application.Current.MainPage.Navigation.PopAsync();
+                   await Xamarin.Forms.Application.Current.MainPage.Navigation.PopAsync();
                 });
             }
         }

@@ -139,7 +139,7 @@ namespace DNKApp.ViewModels
             {
                 return  new Command<Product>((Product product) =>
                 {
-                    navigation.PushAsync(new PreviewPage(product.name, product.images[0], product.FPrice, product.LongDescription, product.categories[0], product.description));
+                    navigation.PushAsync(new PreviewPage(product.id,product.name, product.images[0], product.FPrice, product.LongDescription, product.categories[0], product.description));
                 });
             }
         }

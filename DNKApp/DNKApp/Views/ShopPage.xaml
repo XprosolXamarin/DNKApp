@@ -41,7 +41,7 @@
             <Grid RowSpacing="20" HorizontalOptions="FillAndExpand" VerticalOptions="StartAndExpand">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="210"/>
+                        <RowDefinition Height="250"/>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
@@ -82,7 +82,7 @@
                                                 <FormattedString>
                                                     <FormattedString.Spans>
                                                         <Span Text="RS:"/>
-                                                        <Span Text="{Binding Price, Mode=TwoWay}"/>
+                                                    <Span Text="{Binding Price, StringFormat='{0:c}', Mode=TwoWay}"/>
                                                         <Span Text=".00/"/>
                                                     </FormattedString.Spans>
                                                 </FormattedString>
@@ -149,10 +149,10 @@
                 <StackLayout  Margin="30,0,30,0" Grid.Row="4" Spacing="0" BindableLayout.ItemsSource="{Binding MyCollections}" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
                     <BindableLayout.ItemTemplate>
                         <DataTemplate>
-                            <Grid Margin="0,5" HorizontalOptions="FillAndExpand" VerticalOptions="Start" HeightRequest="285">
+                            <Grid Margin="0,5" HorizontalOptions="FillAndExpand" VerticalOptions="Start" HeightRequest="150">
                                 <Image Source="{Binding Image}" Aspect="Fill" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"/>
                                 <Image Source="overlayCol.png" Aspect="Fill" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"/>
-                                <Label Text="{Binding Title}" TextColor="White" FontSize="35" FontFamily="{StaticResource PlayfairBold}" Margin="10,20" VerticalOptions="End" HorizontalTextAlignment="Center"/>
+                                <Label Text="{Binding Title}" TextColor="White" FontSize="25" FontFamily="{StaticResource PlayfairBold}" Margin="10,20" VerticalOptions="End" HorizontalTextAlignment="Center"/>
                             </Grid>
                         </DataTemplate>
                     </BindableLayout.ItemTemplate>
