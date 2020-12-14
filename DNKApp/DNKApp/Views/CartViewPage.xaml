@@ -168,13 +168,13 @@
                     <Button FontFamily="ThemeFontBold"
                                 CornerRadius="2"
                                 FontSize="Small"
-                                Text="Place Order"
+                                Text="Checkout"
                                 Padding="0"
                                 WidthRequest="200"
                                 TextColor="White"
                                 HorizontalOptions="EndAndExpand"
                                 IsVisible="{Binding CartHasItem}"
-                                Command="{Binding PlaceOrder}"
+                                Command="{Binding BillingDetailCommand}"
                                 BackgroundColor="{StaticResource Key=NormalColor}"/>
                 </StackLayout>
 

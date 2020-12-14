@@ -26,10 +26,6 @@ namespace DNKApp.ViewModels
         }
         public TestViewModel()
         {
-            Items.Add(new clsTest
-            {
-                ProductName = "ali"
-            });
         }
     }
 }

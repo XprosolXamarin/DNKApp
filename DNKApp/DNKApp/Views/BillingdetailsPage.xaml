@@ -1,0 +1,76 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="DNKApp.Views.BillingdetailsPage"
+             Visual="Material">
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout Orientation="Vertical" Padding="20">
+
+                <!-- start TIMELINE BUBBLES -->
+                <StackLayout Orientation="Horizontal" Spacing="0" Padding="10, 0">
+                    <Frame BackgroundColor="White" WidthRequest="20" HeightRequest="20" CornerRadius="50" Padding="7" BorderColor="#DDDDDD">
+                        <Frame BackgroundColor="{StaticResource NormalColor}" CornerRadius="50"/>
+                    </Frame>
+                    <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand">
+                        <BoxView BackgroundColor="#DDDDDD" HeightRequest="1"/>
+                    </StackLayout>
+                    <Frame BackgroundColor="White" WidthRequest="20" HeightRequest="20" CornerRadius="50" Padding="7" BorderColor="#DDDDDD"/>
+                    <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand">
+                        <BoxView BackgroundColor="#DDDDDD" HeightRequest="1"/>
+                    </StackLayout>
+                    <Frame BackgroundColor="White" WidthRequest="20" HeightRequest="20" CornerRadius="50" Padding="7" BorderColor="#DDDDDD"/>
+                </StackLayout>
+                <StackLayout Orientation="Horizontal">
+                    <Label Text="Billing details" TextColor="Black"  HorizontalOptions="StartAndExpand"/>
+                    <Label Text="Payments" TextColor="#707070"  HorizontalOptions="CenterAndExpand"/>
+                    <Label Text="Summery" TextColor="#707070"  HorizontalOptions="EndAndExpand"/>
+                </StackLayout>
+                <!-- end TIMELINE BUBBLES -->
+
+                <!-- start TICK WITCH TEXT -->
+                <StackLayout Orientation="Horizontal" Margin="0, 20">
+                    <!--<Frame CornerRadius="50" WidthRequest="12" HeightRequest="12" Padding="5" BackgroundColor="#FA4248">
+                        <Image Source="tick.png" Aspect="AspectFit"/>
+                    </Frame>-->
+                    <CheckBox Color="{StaticResource NormalColor}" IsChecked="True"/>
+                    <Label Text="Billing address is the same as delivery" TextColor="Black" FontSize="Small" VerticalTextAlignment="Center" FontFamily="ThemeFont"/>
+                </StackLayout>
+                <!-- end TICK WITCH TEXT -->
+
+                <!-- start ADDRESS -->
+                <StackLayout Orientation="Horizontal">
+                    <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand">
+                        <Entry Placeholder="First Name" TextColor="Black" HorizontalOptions="FillAndExpand" FontFamily="ThemeFont"/>
+                    </StackLayout>
+                    <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand">
+                        <Entry Placeholder="Last Name" TextColor="Black" HorizontalOptions="FillAndExpand" FontFamily="ThemeFont"/>
+                    </StackLayout>
+                </StackLayout>
+                 <Entry Placeholder="Company Name(Optional)"  TextColor="Black" HorizontalOptions="FillAndExpand" FontFamily="ThemeFont"/>
+                <Entry Placeholder="Country/Region" TextColor="Black" HorizontalOptions="FillAndExpand" FontFamily="ThemeFont"/>
+                <Entry Placeholder="Street Address" TextColor="Black" HorizontalOptions="FillAndExpand" FontFamily="ThemeFont"/>
+                <Entry Placeholder="Town/City" TextColor="Black" HorizontalOptions="FillAndExpand" FontFamily="ThemeFont"/>
+                <StackLayout Orientation="Horizontal">
+                    <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand">
+                        <Entry Placeholder="State" TextColor="Black" HorizontalOptions="FillAndExpand" FontFamily="ThemeFont"/>
+                    </StackLayout>
+                    <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand">
+                        <Entry Placeholder="Postcode/ZIP" TextColor="Black" HorizontalOptions="FillAndExpand" FontFamily="ThemeFont"/>
+                    </StackLayout>
+                </StackLayout>
+                <Entry Placeholder="Phone" Keyboard="Telephone" TextColor="Black" HorizontalOptions="FillAndExpand" FontFamily="ThemeFont"/>
+                <Entry Placeholder="Email" Keyboard="Email" TextColor="Black" HorizontalOptions="FillAndExpand" FontFamily="ThemeFont"/>
+                <!-- end ADDRESS -->
+
+                <!-- start BOTTOM BUTTONS -->
+                <StackLayout Orientation="Horizontal" Spacing="30">
+                    <Button Text="Back" TextColor="Black" CornerRadius="10" BorderWidth="1" BackgroundColor="Transparent" BorderColor="{StaticResource NormalColor}" HorizontalOptions="FillAndExpand" Command="{Binding CartView}" CommandParameter="pop" FontFamily="ThemeFont"/>
+                    <Button Text="Next" TextColor="White" CornerRadius="10" BorderWidth="1" BackgroundColor="{StaticResource NormalColor}" HorizontalOptions="FillAndExpand" Command="{Binding PaymentCommand}" CommandParameter="pushPayment" FontFamily="ThemeFont"/>
+                </StackLayout>
+                <!-- end BOTTOM BUTTONS -->
+
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

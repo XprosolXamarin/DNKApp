@@ -10,7 +10,7 @@ namespace DNKApp
         public App()
         {
             InitializeComponent();
-
+           
             MainPage = new SplashPage();
         }
 

@@ -1,5 +1,6 @@
 ﻿using DNKApp.Models;
 using DNKApp.Services;
+using DNKApp.Views;
 using SQLite;
 using System;
 using System.Collections.Generic;
@@ -54,7 +55,20 @@ namespace DNKApp.ViewModels
 
             }
         }
-        public ObservableCollection<clsInvoice> invoice { get; set; }
+        private ObservableCollection<clsInvoice> _invoice { get; set; }
+        public ObservableCollection<clsInvoice> invoice
+        {
+            get
+            {
+                return _invoice;
+            }
+            set
+            {
+                _invoice = value;
+                OnPropertyChanged();
+            }
+        }
+
         public  CartViewModel(INavigation navigation)
         {
             this.navigation = navigation;
@@ -87,17 +101,60 @@ namespace DNKApp.ViewModels
            
            
         }
+
+        public Command CartView
+        {
+            get
+            {
+                return new Command(() =>
+                {
+                    navigation.PushAsync(new CartViewPage());
+                });
+            }
+        }
         public Xamarin.Forms.Command PlaceOrder
         {
             get
             {
-                return new Xamarin.Forms.Command(() =>
+                return new Xamarin.Forms.Command(async() =>
                 {
-                    
-
+                    //  await _connection.DropTableAsync<clsInvoice>();
+                    await navigation.PushAsync(new OrderAcceptedPage());
+                  // Application.Current.MainPage = new NavigationPage(new OrderAcceptedPage());
                 });
             }
         }
+        public Command PaymentCommand
+        {
+            get
+            {
+                return new Command(async () =>
+                {
+                    await navigation.PushAsync(new PaymentPage());
+                });
+            }
+        }
+        public Command SummaryCommand
+        {
+            get
+            {
+                return new Command(async () =>
+                {
+                    await navigation.PushAsync(new SummaryPage());
+                });
+            }
+        }
+        public Command BillingDetailCommand
+        {
+            get
+            {
+                return new Command(async () =>
+                {
+                    await navigation.PushAsync(new BillingdetailsPage());
+                });
+            }
+        }
+        
         public Command<clsInvoice> IncreaseQtyCommand
         {
 
@@ -119,6 +176,7 @@ namespace DNKApp.ViewModels
                 });
             }
         }
+
         public Xamarin.Forms.Command<clsInvoice> DecreaseQtyCommand
         {
             get
@@ -152,6 +210,7 @@ namespace DNKApp.ViewModels
                 });
             }
         }
+
         public Command<clsInvoice> RemoveItem
         {
             get
@@ -164,7 +223,7 @@ namespace DNKApp.ViewModels
                     await _connection.DeleteAsync(p);
                     invoice.Remove(p);
                     //Items.Remove(product);
-                    //Total.TBill = Total.TBill - product.SRate;
+                    TBill = TBill - p.SRate;
                     //Total.TCount--;
 
                 });

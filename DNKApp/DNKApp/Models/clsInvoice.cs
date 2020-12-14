@@ -39,6 +39,7 @@ namespace DNKApp.Models
             }
         }
         public string imagepath { get; set; }
+        public DateTime DateTime { get; set; }
 
     }
 }

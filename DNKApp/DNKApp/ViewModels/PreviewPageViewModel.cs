@@ -182,11 +182,21 @@ namespace DNKApp.ViewModels
             {
                 return new Xamarin.Forms.Command<clsInvoice>(async (clsInvoice _clsInvoice) =>
                 {
-                    
+
+                    //if (!await _connection.Table<clsInvoice>("select * from clsInvoice").FirstOrDefaultAsync();
+                    //{
+                    //    var invoice = new clsInvoice { id = id, ProductName = name, SRate = price, FRate = price, Qty = ++Qty, imagepath = img };
+                    //    var abc = await _connection.UpdateAsync(invoice);
+                    //}
+                    //else
+                    //{
+                        var invoice = new clsInvoice { id = id, ProductName = name, SRate = price, FRate = price, Qty = Qty, imagepath = img, DateTime= System.DateTime.Now };
+                  //await  Xamarin.Forms.Application.Current.MainPage.DisplayAlert("", invoice.DateTime, "ok");
+                        var abc = await _connection.InsertAsync(invoice);
+                    //}
 
                     //Xamarin.Forms.DependencyService.Get<ISQLite>().GetConnectionWithCreateDatabase();
-                    var invoice = new clsInvoice {id=id, ProductName = name, SRate = price,FRate=price, Qty=Qty,imagepath=img };
-                    var abc=await _connection.InsertAsync(invoice);
+                    
                    
 
                     //bool res = Xamarin.Forms.DependencyService.Get<ISQLite>().SaveEmployee(employee);

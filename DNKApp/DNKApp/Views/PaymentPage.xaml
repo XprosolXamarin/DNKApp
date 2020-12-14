@@ -1,0 +1,84 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:tabview="clr-namespace:Xam.Plugin.TabView;assembly=Xam.Plugin.TabView" xmlns:frame="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+             x:Class="DNKApp.Views.PaymentPage">
+    <StackLayout Orientation="Vertical" Padding="20" >
+        <StackLayout Orientation="Horizontal" Spacing="0" Padding="10, 0">
+            <Frame BackgroundColor="White" WidthRequest="20" HeightRequest="20" CornerRadius="50" Padding="7" BorderColor="#FA4248">
+                <Frame BackgroundColor="{StaticResource NormalColor}" CornerRadius="50"/>
+            </Frame>
+            <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand">
+                <BoxView BackgroundColor="{StaticResource NormalColor}" HeightRequest="1"/>
+            </StackLayout>
+            <Frame BackgroundColor="White" WidthRequest="20" HeightRequest="20" CornerRadius="50" Padding="7" BorderColor="#DDDDDD">
+                <Frame BackgroundColor="{StaticResource NormalColor}" CornerRadius="50"/>
+            </Frame>
+            <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand">
+                <BoxView BackgroundColor="#DDDDDD" HeightRequest="1"/>
+            </StackLayout>
+            <Frame BackgroundColor="White" WidthRequest="20" HeightRequest="20" CornerRadius="50" Padding="7" BorderColor="#DDDDDD"/>
+        </StackLayout>
+        <StackLayout Orientation="Horizontal">
+            <Label Text="Address" TextColor="Black" HorizontalOptions="StartAndExpand"/>
+            <Label Text="Payments" TextColor="#707070" HorizontalOptions="CenterAndExpand"/>
+            <Label Text="Summery" TextColor="#707070" HorizontalOptions="EndAndExpand"/>
+        </StackLayout>
+        <tabview:TabViewControl HeaderBackgroundColor="Transparent"
+                                                HeaderSelectionUnderlineColor="{StaticResource NormalColor}"
+                                                HeaderSelectionUnderlineThickness="2"
+                                                HeaderTabTextColor="{StaticResource NormalColor}"
+                                                HeaderTabTextFontFamily="ThemeFontBold"
+                                                HeaderTabTextFontSize="14"
+                                                HorizontalOptions="FillAndExpand"
+                                                VerticalOptions="FillAndExpand"
+                                                IsSwipeEnabled="True"
+                                                TabHeaderSpacing="0"
+                                                ContentHeight="300">
+                    <tabview:TabViewControl.ItemSource>
+                        <tabview:TabItem HeaderText="Cash On Delivery">
+                            <StackLayout VerticalOptions="StartAndExpand" Spacing="0" Padding="0, 20, 0, 0">
+                                <frame:PancakeView CornerRadius="10, 10, 0, 0" Padding="20" BackgroundColor="#FFF5F6">
+                                    <Image Source="cod.png" HorizontalOptions="FillAndExpand" Aspect="AspectFit"/>
+                                </frame:PancakeView>
+                                <frame:PancakeView CornerRadius="0, 0, 10, 10" Padding="10" BackgroundColor="#FFFCFC">
+                                    <Label Text="Pay at Door Step" FontFamily="ThemeFont" TextColor="Black"/>
+                                </frame:PancakeView>
+                            </StackLayout>
+                        </tabview:TabItem>
+                        <tabview:TabItem HeaderText="Credit/Debit Card">
+                            <StackLayout>
+                                <!-- start ADDRESS -->
+                                <Label Text="Card Name" FontFamily="ThemeFont" TextColor="#707070" HorizontalOptions="FillAndExpand"/>
+                                <Entry Placeholder="Jamesons Dunn" FontFamily="ThemeFont" TextColor="Black" HorizontalOptions="FillAndExpand" Keyboard="Text"/>
+
+                                <Label Text="Card Number" FontFamily="ThemeFont" TextColor="#707070" HorizontalOptions="FillAndExpand"/>
+                                <Entry Placeholder="4560 5644 3224 4543" FontFamily="ThemeFont" TextColor="Black" HorizontalOptions="FillAndExpand" Keyboard="Numeric"/>
+
+                                <StackLayout Orientation="Horizontal">
+                                    <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand">
+                                        <Label Text="Card Expiry" FontFamily="ThemeFont" TextColor="#707070" HorizontalOptions="FillAndExpand"/>
+                                        <DatePicker MinimumDate="01/01/2018" MaximumDate="01/01/2020" Date="01/01/2019" FontFamily="ThemeFont" TextColor="Black" HorizontalOptions="FillAndExpand"/>
+                                    </StackLayout>
+                                    <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand">
+                                        <Label Text="CVV" FontFamily="ThemeFont" TextColor="#707070" HorizontalOptions="FillAndExpand"/>
+                                        <Entry Placeholder="467" FontFamily="ThemeFont" TextColor="Black" HorizontalOptions="FillAndExpand" Keyboard="Numeric"/>
+                                    </StackLayout>
+                                </StackLayout>
+
+                                <StackLayout Orientation="Horizontal">
+                                    <CheckBox Color="{StaticResource NormalColor}"/>
+                                    <Label Text="Save Card" FontFamily="ThemeFont" VerticalTextAlignment="Center"/>
+                                </StackLayout>
+                                <!-- end ADDRESS -->
+                            </StackLayout>
+                        </tabview:TabItem>
+                    </tabview:TabViewControl.ItemSource>
+                </tabview:TabViewControl>
+        <StackLayout Orientation="Horizontal" Spacing="30">
+            <Button Text="Back" TextColor="Black" FontFamily="ThemeFontBold" BorderWidth="1" BackgroundColor="Transparent" BorderColor="{StaticResource NormalColor}" HorizontalOptions="FillAndExpand" Command="{Binding BillingDetailCommand}" CommandParameter="pop"/>
+            <Button Text="NExt" TextColor="White" FontFamily="ThemeFontBold" BorderWidth="1" BackgroundColor="{StaticResource NormalColor}" HorizontalOptions="FillAndExpand" Command="{Binding SummaryCommand}" CommandParameter="pushSummary"/>
+        </StackLayout>
+    </StackLayout>
+       
+   
+</ContentPage>
