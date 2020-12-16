@@ -75,8 +75,8 @@
                     </tabview:TabViewControl.ItemSource>
                 </tabview:TabViewControl>
         <StackLayout Orientation="Horizontal" Spacing="30">
-            <Button Text="Back" TextColor="Black" FontFamily="ThemeFontBold" BorderWidth="1" BackgroundColor="Transparent" BorderColor="{StaticResource NormalColor}" HorizontalOptions="FillAndExpand" Command="{Binding BillingDetailCommand}" CommandParameter="pop"/>
-            <Button Text="NExt" TextColor="White" FontFamily="ThemeFontBold" BorderWidth="1" BackgroundColor="{StaticResource NormalColor}" HorizontalOptions="FillAndExpand" Command="{Binding SummaryCommand}" CommandParameter="pushSummary"/>
+            <Button Text="Back" TextColor="Black" FontFamily="ThemeFontBold" BorderWidth="1" BackgroundColor="Transparent" BorderColor="{StaticResource NormalColor}" HorizontalOptions="FillAndExpand" Command="{Binding CheckoutCommand}" CommandParameter="pop"/>
+            <Button Text="NExt" TextColor="White" FontFamily="ThemeFontBold" BorderWidth="1" BackgroundColor="{StaticResource NormalColor}" HorizontalOptions="FillAndExpand" Command="{Binding CheckoutCommand}" CommandParameter="pushSummary"/>
         </StackLayout>
     </StackLayout>
        

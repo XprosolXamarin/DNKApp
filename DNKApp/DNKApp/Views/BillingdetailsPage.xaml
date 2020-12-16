@@ -41,32 +41,32 @@
                 <!-- start ADDRESS -->
                 <StackLayout Orientation="Horizontal">
                     <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand">
-                        <Entry Placeholder="First Name" TextColor="Black" HorizontalOptions="FillAndExpand" FontFamily="ThemeFont"/>
+                        <Entry Placeholder="First Name" Text="{Binding first_name}" TextColor="Black" HorizontalOptions="FillAndExpand" FontFamily="ThemeFont"/>
                     </StackLayout>
                     <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand">
-                        <Entry Placeholder="Last Name" TextColor="Black" HorizontalOptions="FillAndExpand" FontFamily="ThemeFont"/>
+                        <Entry Placeholder="Last Name" Text="{Binding last_name}" TextColor="Black" HorizontalOptions="FillAndExpand" FontFamily="ThemeFont"/>
                     </StackLayout>
                 </StackLayout>
-                 <Entry Placeholder="Company Name(Optional)"  TextColor="Black" HorizontalOptions="FillAndExpand" FontFamily="ThemeFont"/>
-                <Entry Placeholder="Country/Region" TextColor="Black" HorizontalOptions="FillAndExpand" FontFamily="ThemeFont"/>
-                <Entry Placeholder="Street Address" TextColor="Black" HorizontalOptions="FillAndExpand" FontFamily="ThemeFont"/>
-                <Entry Placeholder="Town/City" TextColor="Black" HorizontalOptions="FillAndExpand" FontFamily="ThemeFont"/>
+                <Entry Placeholder="Company Name(Optional)" Text="{Binding company}" TextColor="Black" HorizontalOptions="FillAndExpand" FontFamily="ThemeFont"/>
+                <Entry Placeholder="Country/Region" Text="{Binding country}" TextColor="Black" HorizontalOptions="FillAndExpand" FontFamily="ThemeFont"/>
+                <Entry Placeholder="Street Address" Text="{Binding address_1}" TextColor="Black" HorizontalOptions="FillAndExpand" FontFamily="ThemeFont"/>
+                <Entry Placeholder="Town/City" Text="{Binding city}" TextColor="Black" HorizontalOptions="FillAndExpand" FontFamily="ThemeFont"/>
                 <StackLayout Orientation="Horizontal">
                     <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand">
-                        <Entry Placeholder="State" TextColor="Black" HorizontalOptions="FillAndExpand" FontFamily="ThemeFont"/>
+                        <Entry Placeholder="State" Text="{Binding state}" TextColor="Black" HorizontalOptions="FillAndExpand" FontFamily="ThemeFont"/>
                     </StackLayout>
                     <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand">
-                        <Entry Placeholder="Postcode/ZIP" TextColor="Black" HorizontalOptions="FillAndExpand" FontFamily="ThemeFont"/>
+                        <Entry Placeholder="Postcode/ZIP" Text="{Binding postcode}" TextColor="Black" HorizontalOptions="FillAndExpand" FontFamily="ThemeFont"/>
                     </StackLayout>
                 </StackLayout>
-                <Entry Placeholder="Phone" Keyboard="Telephone" TextColor="Black" HorizontalOptions="FillAndExpand" FontFamily="ThemeFont"/>
-                <Entry Placeholder="Email" Keyboard="Email" TextColor="Black" HorizontalOptions="FillAndExpand" FontFamily="ThemeFont"/>
+                <Entry Placeholder="Phone" Text="{Binding phone}" Keyboard="Telephone" TextColor="Black" HorizontalOptions="FillAndExpand" FontFamily="ThemeFont"/>
+                <Entry Placeholder="Email" Text="{Binding email}" Keyboard="Email" TextColor="Black" HorizontalOptions="FillAndExpand" FontFamily="ThemeFont"/>
                 <!-- end ADDRESS -->
 
                 <!-- start BOTTOM BUTTONS -->
                 <StackLayout Orientation="Horizontal" Spacing="30">
-                    <Button Text="Back" TextColor="Black" CornerRadius="10" BorderWidth="1" BackgroundColor="Transparent" BorderColor="{StaticResource NormalColor}" HorizontalOptions="FillAndExpand" Command="{Binding CartView}" CommandParameter="pop" FontFamily="ThemeFont"/>
-                    <Button Text="Next" TextColor="White" CornerRadius="10" BorderWidth="1" BackgroundColor="{StaticResource NormalColor}" HorizontalOptions="FillAndExpand" Command="{Binding PaymentCommand}" CommandParameter="pushPayment" FontFamily="ThemeFont"/>
+                    <Button Text="Back" TextColor="Black" CornerRadius="10" BorderWidth="1" BackgroundColor="Transparent" BorderColor="{StaticResource NormalColor}" HorizontalOptions="FillAndExpand" Command="{Binding CheckoutCommand}" CommandParameter="pop" FontFamily="ThemeFont"/>
+                    <Button Text="Next" TextColor="White" CornerRadius="10" BorderWidth="1" BackgroundColor="{StaticResource NormalColor}" HorizontalOptions="FillAndExpand" Command="{Binding CheckoutCommand}" CommandParameter="pushPayment" FontFamily="ThemeFont"/>
                 </StackLayout>
                 <!-- end BOTTOM BUTTONS -->
 

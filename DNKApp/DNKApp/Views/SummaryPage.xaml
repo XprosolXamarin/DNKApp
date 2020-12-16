@@ -47,7 +47,7 @@
                                 <Frame CornerRadius="20" BorderColor="#EBEBEB" HasShadow="False" IsClippedToBounds="True" HeightRequest="120" WidthRequest="120" Padding="0">
                                     <Image Source="{Binding imagepath}" Aspect="Fill"/>
                                 </Frame>
-                                <Label Text="{Binding ProductName}" FontFamily="ThemeFont" FontSize="Small" TextColor="Black"/>
+                                <Label Text="{Binding name}" FontFamily="ThemeFont" FontSize="Small" TextColor="Black"/>
                                 <Label Text="{Binding SRate}" FontFamily="ThemeFont" FontSize="Small" TextColor="{StaticResource NormalColor}"/>
                             </StackLayout>
                         </DataTemplate>
@@ -96,8 +96,8 @@
 
                 <!-- start BOTTOM BUTTONS -->
                 <StackLayout Orientation="Horizontal" Spacing="20">
-                    <Button Text="Back" TextColor="Black" CornerRadius="10" BorderWidth="1" BackgroundColor="Transparent" BorderColor="{StaticResource NormalColor}" HorizontalOptions="FillAndExpand" Command="{Binding PaymentCommand}" CommandParameter="pop"/>
-                    <Button Text="Place order" TextColor="White" CornerRadius="10" BorderWidth="1" BackgroundColor="{StaticResource NormalColor}" HorizontalOptions="FillAndExpand" Command="{Binding PlaceOrder}" CommandParameter="pushOrderAccepted"/>
+                    <Button Text="Back" TextColor="Black" CornerRadius="10" BorderWidth="1" BackgroundColor="Transparent" BorderColor="{StaticResource NormalColor}" HorizontalOptions="FillAndExpand" Command="{Binding CheckoutCommand}" CommandParameter="pop"/>
+                    <Button Text="Place order" TextColor="White" CornerRadius="10" BorderWidth="1" BackgroundColor="{StaticResource NormalColor}" HorizontalOptions="FillAndExpand" Command="{Binding PlaceOrder}"/>
                 </StackLayout>
                 <!-- end BOTTOM BUTTONS -->
 

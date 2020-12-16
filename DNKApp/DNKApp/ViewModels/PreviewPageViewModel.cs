@@ -151,6 +151,7 @@ namespace DNKApp.ViewModels
             _connection.CreateTableAsync<clsInvoice>();
             _connection.Table<clsInvoice>().ToListAsync();
             
+
         }
        
         public Xamarin.Forms.Command IncreaseQtyCommand
@@ -190,14 +191,19 @@ namespace DNKApp.ViewModels
                     //}
                     //else
                     //{
-                        var invoice = new clsInvoice { id = id, ProductName = name, SRate = price, FRate = price, Qty = Qty, imagepath = img, DateTime= System.DateTime.Now };
+                        var invoice = new clsInvoice {id=id,name = name, SRate = price, FRate = price, quantity = Qty, imagepath = img, DateTime= System.DateTime.Now };
                   //await  Xamarin.Forms.Application.Current.MainPage.DisplayAlert("", invoice.DateTime, "ok");
                         var abc = await _connection.InsertAsync(invoice);
+                   await _connection.CreateTableAsync<LineItems>();
+                   await _connection.Table<LineItems>().ToListAsync();
+                    var items = new LineItems {name = name,  product_id =  id, quantity = Qty,  };
+                    //await  Xamarin.Forms.Application.Current.MainPage.DisplayAlert("", invoice.DateTime, "ok");
+                     await _connection.InsertAsync(items);
                     //}
 
                     //Xamarin.Forms.DependencyService.Get<ISQLite>().GetConnectionWithCreateDatabase();
-                    
-                   
+
+
 
                     //bool res = Xamarin.Forms.DependencyService.Get<ISQLite>().SaveEmployee(employee);
                     //if (res)
@@ -220,7 +226,7 @@ namespace DNKApp.ViewModels
                     //    Qty = Qty,
                     //    Price=price,
                     //});
-                   await Xamarin.Forms.Application.Current.MainPage.Navigation.PopAsync();
+                    await Xamarin.Forms.Application.Current.MainPage.Navigation.PopAsync();
                 });
             }
         }

@@ -11,7 +11,7 @@ namespace DNKApp.Models
     {
         [PrimaryKey]
         public int id { get; set; }
-        public string ProductName { get; set; }
+        public string name { get; set; }
        
         private int _SRate;
         public int SRate
@@ -25,21 +25,22 @@ namespace DNKApp.Models
             }
         }
         public int FRate { get; set; }
-        private int _Qty { get; set; }
-        public int Qty
+        private int _quantity { get; set; }
+        public int quantity
         {
-            get { return _Qty; }
+            get { return _quantity; }
             set
             {
                 if (value > 1)
-                    _Qty = value;
+                    _quantity = value;
                 else
-                    _Qty = 1;
+                    _quantity = 1;
                 OnPropertyChanged();
             }
         }
         public string imagepath { get; set; }
         public DateTime DateTime { get; set; }
+        public string price => FRate.ToString();
 
     }
 }
