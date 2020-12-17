@@ -246,7 +246,7 @@ namespace DNKApp.ViewModels
             _connection.CreateTableAsync<Shipping>();
             _connection.Table<Shipping>().FirstAsync();
             _ = getallcaetitem();
-            codcheckbox = true;
+            
 
 
 
