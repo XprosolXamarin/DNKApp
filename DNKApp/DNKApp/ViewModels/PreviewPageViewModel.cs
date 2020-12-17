@@ -150,7 +150,8 @@ namespace DNKApp.ViewModels
             _connection = Xamarin.Forms.DependencyService.Get<ISQLiteDb>().GetConnection();
             _connection.CreateTableAsync<clsInvoice>();
             _connection.Table<clsInvoice>().ToListAsync();
-            
+            _connection.CreateTableAsync<ShippingLine>();
+            _connection.Table<ShippingLine>().ToListAsync();
 
         }
        
@@ -196,9 +197,12 @@ namespace DNKApp.ViewModels
                         var abc = await _connection.InsertAsync(invoice);
                    await _connection.CreateTableAsync<LineItems>();
                    await _connection.Table<LineItems>().ToListAsync();
-                    var items = new LineItems {name = name,  product_id =  id, quantity = Qty,  };
+                    var items = new LineItems { product_id =  id, quantity = Qty,price=price,total=price.ToString(),subtotal=price.ToString()  };
                     //await  Xamarin.Forms.Application.Current.MainPage.DisplayAlert("", invoice.DateTime, "ok");
                      await _connection.InsertAsync(items);
+                    var shippingLine = new ShippingLine { method_title= "Flat Rate", method_id = "flat_rate", total = price.ToString() };
+                    //await  Xamarin.Forms.Application.Current.MainPage.DisplayAlert("", invoice.DateTime, "ok");
+                    await _connection.InsertAsync(shippingLine);
                     //}
 
                     //Xamarin.Forms.DependencyService.Get<ISQLite>().GetConnectionWithCreateDatabase();

@@ -37,22 +37,25 @@
                     <tabview:TabViewControl.ItemSource>
                         <tabview:TabItem HeaderText="Cash On Delivery">
                             <StackLayout VerticalOptions="StartAndExpand" Spacing="0" Padding="0, 20, 0, 0">
-                                <frame:PancakeView CornerRadius="10, 10, 0, 0" Padding="20" BackgroundColor="#FFF5F6">
-                                    <Image Source="cod.png" HorizontalOptions="FillAndExpand" Aspect="AspectFit"/>
+                                <frame:PancakeView HeightRequest="200" CornerRadius="10, 10, 0, 0" Padding="10" BackgroundColor="#FFF5F6">
+                                    <Image Source="cod.png" HorizontalOptions="FillAndExpand" Aspect="AspectFill"/>
                                 </frame:PancakeView>
-                                <frame:PancakeView CornerRadius="0, 0, 10, 10" Padding="10" BackgroundColor="#FFFCFC">
-                                    <Label Text="Pay at Door Step" FontFamily="ThemeFont" TextColor="Black"/>
-                                </frame:PancakeView>
-                            </StackLayout>
+                        <StackLayout Orientation="Horizontal" Padding="0, 20, 0, 0">
+                            <CheckBox Color="{StaticResource NormalColor}" IsChecked="{Binding codcheckbox}"/>
+                            <Label Text="Pay at Door Step" FontFamily="ThemeFont" TextColor="Black" VerticalTextAlignment="Center"/>
+                        </StackLayout>
+                      
+
+                    </StackLayout>
                         </tabview:TabItem>
                         <tabview:TabItem HeaderText="Credit/Debit Card">
                             <StackLayout>
                                 <!-- start ADDRESS -->
-                                <Label Text="Card Name" FontFamily="ThemeFont" TextColor="#707070" HorizontalOptions="FillAndExpand"/>
-                                <Entry Placeholder="Jamesons Dunn" FontFamily="ThemeFont" TextColor="Black" HorizontalOptions="FillAndExpand" Keyboard="Text"/>
+                                <Label Text="Card Name"  FontFamily="ThemeFont" TextColor="#707070" HorizontalOptions="FillAndExpand"/>
+                        <Entry Placeholder="Jamesons Dunn" Text="{Binding Card_Name}" FontFamily="ThemeFont" TextColor="Black" HorizontalOptions="FillAndExpand" Keyboard="Text"/>
 
                                 <Label Text="Card Number" FontFamily="ThemeFont" TextColor="#707070" HorizontalOptions="FillAndExpand"/>
-                                <Entry Placeholder="4560 5644 3224 4543" FontFamily="ThemeFont" TextColor="Black" HorizontalOptions="FillAndExpand" Keyboard="Numeric"/>
+                        <Entry Placeholder="4560 5644 3224 4543" Text="{Binding Card_Number}" FontFamily="ThemeFont" TextColor="Black" HorizontalOptions="FillAndExpand" Keyboard="Numeric"/>
 
                                 <StackLayout Orientation="Horizontal">
                                     <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand">
@@ -61,7 +64,7 @@
                                     </StackLayout>
                                     <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand">
                                         <Label Text="CVV" FontFamily="ThemeFont" TextColor="#707070" HorizontalOptions="FillAndExpand"/>
-                                        <Entry Placeholder="467" FontFamily="ThemeFont" TextColor="Black" HorizontalOptions="FillAndExpand" Keyboard="Numeric"/>
+                                        <Entry Placeholder="467" Text="{Binding CVV}" FontFamily="ThemeFont" TextColor="Black" HorizontalOptions="FillAndExpand" Keyboard="Numeric"/>
                                     </StackLayout>
                                 </StackLayout>
 

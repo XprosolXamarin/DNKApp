@@ -1,4 +1,5 @@
-﻿using DNKApp.Models;
+﻿using DNKApp.Helpers;
+using DNKApp.Models;
 using DNKApp.Services;
 using DNKApp.Views;
 using Newtonsoft.Json;
@@ -19,9 +20,56 @@ namespace DNKApp.ViewModels
 {
     public class CartViewModel:BaseViewModel
     {
-        private readonly PlaceOrderApi _placeorderapi;
+        
         public OrderDetailModel orderDetail { get; set; }
         #region
+        private string _Card_Name;
+        public string Card_Name
+        {
+            get { return _Card_Name; }
+            set
+            {
+                _Card_Name = value;
+
+                OnPropertyChanged();
+            }
+        }
+        private string _Card_Number;
+        public string Card_Number
+        {
+            get { return _Card_Number; }
+            set
+            {
+                _Card_Number = value;
+
+                OnPropertyChanged();
+            }
+        }
+
+        private string _CVV;
+        public string CVV
+        {
+            get { return _CVV; }
+            set
+            {
+                _CVV = value;
+
+                OnPropertyChanged();
+            }
+        }
+        #endregion
+        #region
+        private bool _codcheckbox;
+        public bool codcheckbox
+        {
+            get { return _codcheckbox; }
+            set
+            {
+                _codcheckbox = value;
+
+                OnPropertyChanged();
+            }
+        }
         private int _TBill;
         public int TBill
         {
@@ -198,7 +246,10 @@ namespace DNKApp.ViewModels
             _connection.CreateTableAsync<Shipping>();
             _connection.Table<Shipping>().FirstAsync();
             _ = getallcaetitem();
-            
+            codcheckbox = true;
+
+
+
         }
 
         private async Task getallcaetitem()
@@ -234,55 +285,30 @@ namespace DNKApp.ViewModels
             {
                 return new Xamarin.Forms.Command(async() =>
                 {
-
+                    
+                    
+                    
+                    // await _placeorderapi.OrderAsync();
+                    _connection = DependencyService.Get<ISQLiteDb>().GetConnection();
                     OrderDetailModel order = new OrderDetailModel();
-                    
-                   
-                    order.payment_method_title = "Cash on delivery";
+                    order.shipping_lines = await _connection.Table<ShippingLine>().ToListAsync();
                     order.billing = await _connection.Table<Billing>().FirstAsync();
-                    order.shipping= await _connection.Table<Shipping>().FirstAsync();
+                    order.shipping = await _connection.Table<Shipping>().FirstAsync();
                     order.line_items = await _connection.Table<LineItems>().ToListAsync();
-                    
-                    clsInvoice list = new clsInvoice();
-                    
-                var Httpclient = new HttpClient();
+                    var Httpclient = new HttpClient();
 
-                var url = "https://qepdns.com/wp-json/wc/v3/orders?consumer_key=ck_c822f95423287f7ccd15df53b7e56d3de3d5468d&consumer_secret=cs_e1f61450a3c4a7430ce1f493b116912ed60929b5";
+                    var url = "https://qepdns.com/wp-json/wc/v3/orders?consumer_key=ck_c822f95423287f7ccd15df53b7e56d3de3d5468d&consumer_secret=cs_e1f61450a3c4a7430ce1f493b116912ed60929b5";
 
-                var uri = new Uri(string.Format(url, string.Empty));
+                    var uri = new Uri(string.Format(url, string.Empty));
 
-                var json = JsonConvert.SerializeObject(order);
+                    var json = JsonConvert.SerializeObject(order);
 
-                var content = new StringContent(json, Encoding.UTF8, "application/x-www-form-urlencoded");
+                    var content = new StringContent(json, Encoding.UTF8, "application/json");
 
-                HttpResponseMessage response = null;
+                    HttpResponseMessage response = null;
 
-                response = await Httpclient.PostAsync(uri, content);
+                    response = await Httpclient.PostAsync(uri, content);
 
-
-                    if (response.StatusCode == HttpStatusCode.OK)
-                    {
-                        var responseContent = await response.Content.ReadAsStringAsync();
-
-                        var jObject = JObject.Parse(responseContent);
-
-                    }
-                   
-
-                    //response1 = new clsResponse
-                    //{
-                    //    Status = (bool)jObject.GetValue("Status"),
-
-                    //    Message = jObject.GetValue("Message").ToString(),
-                    //    OrderNumber = jObject.GetValue("orderNumber").ToString(),
-
-                    //};
-                    //await _placeorderapi.PlaceOrder(order);
-
-
-                    //  await _connection.DropTableAsync<clsInvoice>();
-                    //await navigation.PushAsync(new OrderAcceptedPage());
-                    // Application.Current.MainPage = new NavigationPage(new OrderAcceptedPage());
                 });
             }
         }
@@ -380,17 +406,31 @@ namespace DNKApp.ViewModels
                     }
                     else if (pageNo.Equals("pushPayment"))
                     {
-                        var billing = new Billing { first_name = first_name, last_name = last_name, company = company, address_1 = address_1, address_2 = address_2, city = city, state = state, postcode = postcode, country = country, email = email, phone = phone };
+                        var billing = new Billing { first_name = first_name, last_name = last_name,  address_1 = address_1, city = city, state = state, postcode = postcode, country = country, email = email, phone = phone };
 
                          await _connection.InsertAsync(billing);
-                        var shipping = new Shipping { first_name = first_name, last_name = last_name, company = company, address_1 = address_1, address_2 = address_2, city = city, state = state, postcode = postcode, country = country };
+                        var shipping = new Shipping { first_name = first_name, last_name = last_name,  address_1 = address_1,  city = city, state = state, postcode = postcode, country = country };
 
                         await _connection.InsertAsync(shipping);
                         await navigation.PushAsync(new PaymentPage());
+
                     }
                     else if (pageNo.Equals("pushSummary"))
                     {
-                        await navigation.PushAsync(new SummaryPage());
+                        if (codcheckbox)
+                        {
+                            await navigation.PushAsync(new SummaryPage());
+                        }     
+                       
+                       else if(Card_Name==null || Card_Number==null || CVV ==null )
+                        {
+                            //DependencyService.Get<IMessage>().Longtime("Please Enter Complete Detail");
+                            await Application.Current.MainPage.DisplayAlert("", "Please enter Complete Detail", "OK");
+                        }
+                        else
+                        {
+                            await navigation.PushAsync(new SummaryPage());
+                        }
                     }
                     else if (pageNo.Equals("pushOrderAccepted"))
                     {
