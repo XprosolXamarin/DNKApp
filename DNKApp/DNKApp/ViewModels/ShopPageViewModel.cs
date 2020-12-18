@@ -42,7 +42,17 @@ namespace DNKApp.ViewModels
             }
         }
 
-        public List<Category> MyCollections { get => GetCollections(); }
+        private ObservableCollection<Category> _MyCollections { get; set; }
+        public ObservableCollection<Category> MyCollections
+        {
+            get { return _MyCollections; }
+            set
+            {
+                _MyCollections = value;
+
+                OnPropertyChanged();
+            }
+        }
         public ObservableCollection<Product> _CollectionsList { get; set; }
         public ObservableCollection<Product> CollectionsList
         {
@@ -56,6 +66,7 @@ namespace DNKApp.ViewModels
         }
         private INavigation navigation;
         private readonly ItemsListApi _itemlistapi;
+        private readonly CategoriesService _categoriesService;
         public List<Banner> Banners { get => GetBanners(); }
         //public ObservableCollection<Product> CollectionsList { get; set; }
         //public List<Product> CollectionsList { get => GetCollections(); }
@@ -64,17 +75,28 @@ namespace DNKApp.ViewModels
         {
             this.navigation = navigation;
             _itemlistapi = new ItemsListApi();
+            _categoriesService = new CategoriesService();
             Isbusy = true;
+            _ = GetCategoriesAsync();
             _ = GetListOfItemsAsync();
             
         }
-         private List<Category> GetCollections()
+         private async Task GetCategoriesAsync()
         {
-            var colList = new List<Category>();
-            colList.Add(new Category { Image = "watches.png", Title = "MEN'S WRISTWATCHES" });
-            colList.Add(new Category { Image = "minidress.png", Title = "WOMEN'S MINI DRESSES" });
-            colList.Add(new Category { Image = "coats.png", Title = "WOMEN'S COATS" });
-            return colList;
+            MyCollections = new ObservableCollection<Category>();
+            var current = Connectivity.NetworkAccess;
+
+            if (current == NetworkAccess.Internet)
+            {
+                MyCollections = await _categoriesService.GetListofCategories();
+
+                
+            }
+            else
+            {
+                await Application.Current.MainPage.DisplayAlert("", "Please Connect with Internet.", "ok");
+                Isbusy = false;
+            }
         }
         private async Task GetListOfItemsAsync()
         {

@@ -60,7 +60,7 @@
                                 <StackLayout Orientation="Horizontal">
                                     <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand">
                                         <Label Text="Card Expiry" FontFamily="ThemeFont" TextColor="#707070" HorizontalOptions="FillAndExpand"/>
-                                        <DatePicker MinimumDate="01/01/2018" MaximumDate="01/01/2020" Date="01/01/2019" FontFamily="ThemeFont" TextColor="Black" HorizontalOptions="FillAndExpand"/>
+                                        <DatePicker MinimumDate="01/01/2018" MaximumDate="01/01/2020" Date="01/01/2021"  FontFamily="ThemeFont" TextColor="Black" HorizontalOptions="FillAndExpand"/>
                                     </StackLayout>
                                     <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand">
                                         <Label Text="CVV" FontFamily="ThemeFont" TextColor="#707070" HorizontalOptions="FillAndExpand"/>
@@ -78,8 +78,8 @@
                     </tabview:TabViewControl.ItemSource>
                 </tabview:TabViewControl>
         <StackLayout Orientation="Horizontal" Spacing="30">
-            <Button Text="Back" TextColor="Black" FontFamily="ThemeFontBold" BorderWidth="1" BackgroundColor="Transparent" BorderColor="{StaticResource NormalColor}" HorizontalOptions="FillAndExpand" Command="{Binding CheckoutCommand}" CommandParameter="pop"/>
-            <Button Text="NExt" TextColor="White" FontFamily="ThemeFontBold" BorderWidth="1" BackgroundColor="{StaticResource NormalColor}" HorizontalOptions="FillAndExpand" Command="{Binding CheckoutCommand}" CommandParameter="pushSummary"/>
+            <Button Text="Back" TextColor="Black" FontFamily="ThemeFontBold" BorderWidth="1" BackgroundColor="Transparent" BorderColor="{StaticResource NormalColor}" HorizontalOptions="FillAndExpand" Command="{Binding popCommand}" />
+            <Button Text="NExt" TextColor="White" FontFamily="ThemeFontBold" BorderWidth="1" BackgroundColor="{StaticResource NormalColor}" HorizontalOptions="FillAndExpand" Command="{Binding NavigateSummaryPage}" />
         </StackLayout>
     </StackLayout>
        

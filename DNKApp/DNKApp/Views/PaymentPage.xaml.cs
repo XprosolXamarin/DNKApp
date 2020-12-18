@@ -16,7 +16,9 @@ namespace DNKApp.Views
         public PaymentPage()
         {
             InitializeComponent();
-            BindingContext = new CartViewModel(Navigation);
+            BindingContext = new PaymentMethodViewModel(Navigation);
         }
+
+      
     }
 }

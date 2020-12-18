@@ -32,9 +32,9 @@ namespace DNKApp.Models
         //public string customer_ip_address { get; set; }
         //public string customer_user_agent { get; set; }
         //public string customer_note { get; set; }
-        public string payment_method => "cod";
-        public string payment_method_title => "Cash on delivery";
-        public Boolean set_paid => false;
+        public string payment_method { get; set; }
+        public string payment_method_title { get; set; }
+        public Boolean set_paid { get; set; }
         public Billing billing { get; set; }
         public Shipping shipping { get; set; }
        

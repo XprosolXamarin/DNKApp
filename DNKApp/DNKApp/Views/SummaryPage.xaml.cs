@@ -13,10 +13,17 @@ namespace DNKApp.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class SummaryPage : ContentPage
     {
-        public SummaryPage()
+        private bool codcheckbox;
+        private string card_Name;
+        private string card_Number;
+        private string cVV;
+
+        public SummaryPage(bool codcheckbox, string card_Name, string card_Number, string cVV)
         {
             InitializeComponent();
-            BindingContext = new CartViewModel(Navigation);
+            BindingContext = new SummaryViewModel(Navigation, codcheckbox, card_Name,card_Number, cVV);
         }
+
+       
     }
 }

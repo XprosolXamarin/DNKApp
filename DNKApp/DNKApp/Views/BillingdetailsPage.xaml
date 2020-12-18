@@ -65,8 +65,8 @@
 
                 <!-- start BOTTOM BUTTONS -->
                 <StackLayout Orientation="Horizontal" Spacing="30">
-                    <Button Text="Back" TextColor="Black" CornerRadius="10" BorderWidth="1" BackgroundColor="Transparent" BorderColor="{StaticResource NormalColor}" HorizontalOptions="FillAndExpand" Command="{Binding CheckoutCommand}" CommandParameter="pop" FontFamily="ThemeFont"/>
-                    <Button Text="Next" TextColor="White" CornerRadius="10" BorderWidth="1" BackgroundColor="{StaticResource NormalColor}" HorizontalOptions="FillAndExpand" Command="{Binding CheckoutCommand}" CommandParameter="pushPayment" FontFamily="ThemeFont"/>
+                    <Button Text="Back" TextColor="Black" CornerRadius="10" BorderWidth="1" BackgroundColor="Transparent" BorderColor="{StaticResource NormalColor}" HorizontalOptions="FillAndExpand" Command="{Binding popCommand}"  FontFamily="ThemeFont"/>
+                    <Button Text="Next" TextColor="White" CornerRadius="10" BorderWidth="1" BackgroundColor="{StaticResource NormalColor}" HorizontalOptions="FillAndExpand" Command="{Binding NavigateToPaymentMethodCommand}"  FontFamily="ThemeFont"/>
                 </StackLayout>
                 <!-- end BOTTOM BUTTONS -->
 

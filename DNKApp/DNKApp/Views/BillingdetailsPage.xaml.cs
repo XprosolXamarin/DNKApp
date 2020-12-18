@@ -16,7 +16,7 @@ namespace DNKApp.Views
         public BillingdetailsPage()
         {
             InitializeComponent();
-            BindingContext = new CartViewModel(Navigation);
+            BindingContext = new BillingDetialViewModel(Navigation);
         }
     }
 }

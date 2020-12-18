@@ -1,7 +1,6 @@
 ﻿using DNKApp.Models;
 using DNKApp.Utlities;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -12,14 +11,14 @@ using System.Threading.Tasks;
 
 namespace DNKApp.Services
 {
-    public class ItemsListApi
+   public class CategoriesService
     {
-        public async Task<ObservableCollection<Product>> GetListofItems()
+        public async Task<ObservableCollection<Category>> GetListofCategories()
         {
-            ObservableCollection<Product> getresponse = new ObservableCollection<Product>();
+            ObservableCollection<Category> getresponse = new ObservableCollection<Category>();
             var Httpclient = new HttpClient();
 
-            var url = Constants.BaseApiAddress + "wp-json/wc/v2/products"+Constants.Consumer_Key;
+            var url = Constants.BaseApiAddress + "wp-json/wc/v3/products/categories" + Constants.Consumer_Key;
 
             var uri = new Uri(string.Format(url, string.Empty));
 
@@ -27,9 +26,9 @@ namespace DNKApp.Services
 
             response = await Httpclient.GetAsync(uri);
 
-            
-                
-            
+
+
+
             if (response.StatusCode == HttpStatusCode.OK)
             {
                 using (var client = new HttpClient())
@@ -38,10 +37,10 @@ namespace DNKApp.Services
                     var result = await client.GetStringAsync(uri);
 
 
-                    var EmployeeList = JsonConvert.DeserializeObject<List<Product>>(result);
-                    
-                    getresponse = new ObservableCollection<Product>(EmployeeList);
-                    
+                    var EmployeeList = JsonConvert.DeserializeObject<List<Category>>(result);
+
+                    getresponse = new ObservableCollection<Category>(EmployeeList);
+
                 }
                 //var responseContent = await response.Content.ReadAsStringAsync();
                 //var jObject = JObject.Parse(responseContent);

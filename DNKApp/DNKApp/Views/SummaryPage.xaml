@@ -96,7 +96,7 @@
 
                 <!-- start BOTTOM BUTTONS -->
                 <StackLayout Orientation="Horizontal" Spacing="20">
-                    <Button Text="Back" TextColor="Black" CornerRadius="10" BorderWidth="1" BackgroundColor="Transparent" BorderColor="{StaticResource NormalColor}" HorizontalOptions="FillAndExpand" Command="{Binding CheckoutCommand}" CommandParameter="pop"/>
+                    <Button Text="Back" TextColor="Black" CornerRadius="10" BorderWidth="1" BackgroundColor="Transparent" BorderColor="{StaticResource NormalColor}" HorizontalOptions="FillAndExpand" Command="{Binding popCommand}" />
                     <Button Text="Place order" TextColor="White" CornerRadius="10" BorderWidth="1" BackgroundColor="{StaticResource NormalColor}" HorizontalOptions="FillAndExpand" Command="{Binding PlaceOrder}"/>
                 </StackLayout>
                 <!-- end BOTTOM BUTTONS -->
