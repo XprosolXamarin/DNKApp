@@ -5,6 +5,7 @@ using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Text;
@@ -52,5 +53,16 @@ namespace DNKApp.Services
             return getresponse;
 
         }
+        public async Task<ObservableCollection<Product>> ProductsByCategoryAsync(int categoryID)
+        {
+            var ProductsByCategory = new ObservableCollection<Product>();
+            var items = (await GetListofItems()).Where(p => p.id == categoryID).ToList();
+            foreach (var item in items)
+            {
+                ProductsByCategory.Add(item);
+            }
+            return ProductsByCategory;
+        }
+
     }
 }

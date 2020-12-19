@@ -150,9 +150,10 @@
                 
                
                 <CollectionView ItemsSource="{Binding MyCollections}"
-                             
+                              SelectionChanged="CollectionView_SelectionChanged"
+                            SelectionMode="Single"
                                 Margin="30,0,30,0" Grid.Row="4" 
-                            VerticalScrollBarVisibility="Never"
+                            HorizontalScrollBarVisibility="Never"
                            >
                     <CollectionView.ItemTemplate>
                         <DataTemplate>

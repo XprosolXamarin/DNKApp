@@ -118,6 +118,7 @@ namespace DNKApp.ViewModels
             }
 
         }
+       
         private List<Banner> GetBanners()
         {
             var bannerList = new List<Banner>();

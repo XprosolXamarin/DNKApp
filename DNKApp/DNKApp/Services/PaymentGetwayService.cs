@@ -37,9 +37,9 @@ namespace DNKApp.Services
                     var result = await client.GetStringAsync(uri);
 
 
-                    var EmployeeList = JsonConvert.DeserializeObject<List<PaymentGetway>>(result);
+                    var PaymentMethodList = JsonConvert.DeserializeObject<List<PaymentGetway>>(result);
 
-                    getresponse = new ObservableCollection<PaymentGetway>(EmployeeList);
+                    getresponse = new ObservableCollection<PaymentGetway>(PaymentMethodList);
 
                 }
                 //var responseContent = await response.Content.ReadAsStringAsync();
