@@ -16,10 +16,14 @@ namespace DNKApp.ViewModels
         private SQLiteAsyncConnection _connection;
         private INavigation navigation;
         public List<clsInvoice> _myCollection;
-        private bool codcheckbox;
-        private string card_Name;
-        private string card_Number;
-        private string cVV;
+        private string id;
+        private string title;
+        private PaymentGetway methods;
+
+        //private bool codcheckbox;
+        //private string card_Name;
+        //private string card_Number;
+        //private string cVV;
 
         public List<clsInvoice> myCollection
         {
@@ -49,16 +53,21 @@ namespace DNKApp.ViewModels
             }
         }
        
-        public SummaryViewModel(INavigation navigation, bool codcheckbox, string card_Name, string card_Number, string cVV)
+       
+        public SummaryViewModel(INavigation navigation /*PaymentGetway _paymentGetway*/)
         {
-            this.codcheckbox = codcheckbox;
-            this.card_Name = card_Name;
-            this.card_Number = card_Number;
-            this.cVV = cVV;
+            //this.codcheckbox = codcheckbox;
+            //this.card_Name = card_Name;
+            //this.card_Number = card_Number;
+            //this.cVV = cVV;
+            //this.methods = _paymentGetway;
+            
             this.navigation = navigation;
             _connection = Xamarin.Forms.DependencyService.Get<ISQLiteDb>().GetConnection();
             _ = getallcaetitem();
         }
+
+        
 
         private async Task getallcaetitem()
         {
@@ -83,21 +92,22 @@ namespace DNKApp.ViewModels
                 return new Xamarin.Forms.Command(async () =>
                 {
                     OrderDetailModel order = new OrderDetailModel();
-                    if (codcheckbox && card_Name != null && card_Number != null && cVV != null)
-                    {
+                    //if (codcheckbox && card_Name != null && card_Number != null && cVV != null)
+                    //{
 
-                    }
-                    else if (codcheckbox)
-                    {
-                        order.payment_method = "cod";
-                        order.payment_method = "Cash on delivery";
-                        order.set_paid = false;
-                    }
-                    else
-                    {
+                    //}
+                    //else if (codcheckbox)
+                    //{
+                    //    order.payment_method = "cod";
+                    //    order.payment_method = "Cash on delivery";
+                    //    order.set_paid = false;
+                    //}
+                    //else
+                    //{
 
-                    }
-
+                    //}
+                    order.payment_method = id;
+                    order.payment_method_title = title;
 
                     // await _placeorderapi.OrderAsync();
 

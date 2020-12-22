@@ -1,21 +1,48 @@
-﻿using NUnit.Framework;
+﻿using DNKApp.ViewModels;
+using NUnit.Framework;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace DNKApp.Models
 {
-    public class PaymentGetway
+    public class PaymentGetway:BaseViewModel
     {
-        public string id { get; set; }
-        public string title { get; set; }
-        public string description { get; set; }
-        public int order { get; set; }
-        public bool enabled { get; set; }
-        public string method_title { get; set; }
-        public string method_description { get; set; }
-        public List method_supports {get; set;}
-        public Settings settings { get; set; }
+        private string _id;
+        public string id 
+        {
+            get
+            {
+                return _id;
+            }
+            set
+            {
+                _id = value;
+                OnPropertyChanged();
+
+            } 
+        }
+        private string _title;
+        public string title
+        {
+            get
+            {
+                return _title;
+            }
+            set
+            {
+                _title = value;
+                OnPropertyChanged();
+
+            }
+        }
+        //public string description { get; set; }
+        //public int order { get; set; }
+        //public bool enabled { get; set; }
+        //public string method_title { get; set; }
+        //public string method_description { get; set; }
+        //public List method_supports {get; set;}
+        //public Settings settings { get; set; }
        
     }
     public class Settings

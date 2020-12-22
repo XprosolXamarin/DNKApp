@@ -8,14 +8,17 @@ using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.CSharp;
+using Microsoft.CSharp.RuntimeBinder;
+
 
 namespace DNKApp.Services
 {
    public class PaymentGetwayService
     {
-        public async Task<ObservableCollection<PaymentGetway>> GetPaymentGetwaysAsync()
+        public async Task<List<PaymentGetway>> GetPaymentGetwaysAsync()
         {
-            ObservableCollection<PaymentGetway> getresponse = new ObservableCollection<PaymentGetway>();
+            List<PaymentGetway> getresponse = new List<PaymentGetway>();
             var Httpclient = new HttpClient();
 
             var url = Constants.BaseApiAddress + "wp-json/wc/v3/payment_gateways" + Constants.Consumer_Key;
@@ -35,11 +38,26 @@ namespace DNKApp.Services
                 {
 
                     var result = await client.GetStringAsync(uri);
+                    //dynamic resObj = JsonConvert.DeserializeObject(result.ToString());
+                    List<dynamic> resObj = JsonConvert.DeserializeObject<List<dynamic>>(result);
+                    List<PaymentGetway> PaymentMethodList =new List<PaymentGetway>();
+                    if (resObj != null)
+                    {
+                        foreach (var vrec in resObj)
+                        {
+                            PaymentGetway sublist = new PaymentGetway();
+                            sublist.id = vrec.id;
+                            sublist.title = vrec.title;
+                           
+                         
+                              
+                            PaymentMethodList.Add(sublist);
+                        }
+                    }
 
+                    //var PaymentMethodList = JsonConvert.DeserializeObject<List<PaymentGetway>>(result);
 
-                    var PaymentMethodList = JsonConvert.DeserializeObject<List<PaymentGetway>>(result);
-
-                    getresponse = new ObservableCollection<PaymentGetway>(PaymentMethodList);
+                    getresponse = new List<PaymentGetway>(PaymentMethodList);
 
                 }
                 //var responseContent = await response.Content.ReadAsStringAsync();

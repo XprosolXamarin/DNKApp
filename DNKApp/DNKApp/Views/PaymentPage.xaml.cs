@@ -1,4 +1,5 @@
-﻿using DNKApp.ViewModels;
+﻿using DNKApp.Models;
+using DNKApp.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,9 +17,17 @@ namespace DNKApp.Views
         public PaymentPage()
         {
             InitializeComponent();
-            BindingContext = new PaymentMethodViewModel(Navigation);
+            BindingContext = new GetwayViewModel();
         }
 
-      
+        private async void PaymentMethods_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var Methods = e.CurrentSelection.FirstOrDefault() as PaymentGetway;
+            if (Methods == null)
+                return;
+            await Navigation.PushAsync(new OrderDetailPage(Methods));
+            _ = ((CollectionView)sender).SelectedItem == null;
+
+        }
     }
 }

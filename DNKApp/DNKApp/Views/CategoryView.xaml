@@ -3,62 +3,37 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="DNKApp.Views.CategoryView">
     <ContentPage.Content>
-        <CollectionView x:Name="Categories" Margin="0" 
-                                    ItemsSource="{Binding ProductsByCategory,Mode=TwoWay}">
+
+        <CollectionView x:Name="Categories" Margin="0,20,0,0" Grid.Row="1" ItemsSource="{Binding ProductsByCategory,Mode=TwoWay}" SelectionMode="Single" 
+                        VerticalScrollBarVisibility="Never" 
+                       >
             <CollectionView.ItemsLayout>
-                <GridItemsLayout HorizontalItemSpacing="20"  Orientation="Horizontal" />
+                <GridItemsLayout Orientation="Vertical" VerticalItemSpacing="10" HorizontalItemSpacing="10" Span="2"/>
             </CollectionView.ItemsLayout>
             <CollectionView.ItemTemplate>
                 <DataTemplate>
-                    <Grid RowSpacing="3">
+                    <Grid Padding="5" BackgroundColor="White" WidthRequest="145" HeightRequest="160">
                         <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
                             <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-
                         </Grid.RowDefinitions>
-                        <Frame Grid.Row="0" Padding="0" HasShadow="False"  HorizontalOptions="Start" VerticalOptions="Start" CornerRadius="10" HeightRequest="150" WidthRequest="150">
-                            <Image Source="{Binding images[0].src, Mode=TwoWay}" Aspect="Fill" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"/>
-                            <Frame.GestureRecognizers>
-                                <TapGestureRecognizer Command="{Binding Path=BindingContext.Preview,  Mode=TwoWay}" CommandParameter="{Binding}"/>
-                            </Frame.GestureRecognizers>
-                        </Frame>
-                        <Label Grid.Row="1" Text="{Binding name, Mode=TwoWay}" TextColor="Black" FontSize="15" FontFamily="ThemeFontBold" MaxLines="2" />
-                        <Label Grid.Row="2" Text="{Binding categories[0].name, Mode=TwoWay}" TextColor="Black" FontSize="12" />
-                        <Label Grid.Row="3"  TextColor="#62153B" FontSize="12" FontFamily="ThemeFontBold">
-                            <Label.FormattedText>
-                                <FormattedString>
-                                    <FormattedString.Spans>
-                                        <Span Text="RS:"/>
-                                        <Span Text="{Binding Price, StringFormat='{0:c}', Mode=TwoWay}"/>
-                                        <Span Text=".00/"/>
-                                    </FormattedString.Spans>
-                                </FormattedString>
-                            </Label.FormattedText>
-                        </Label>
+                        <Image Aspect="AspectFill" Source="{Binding images[0].src, Mode=TwoWay}" Margin="10" WidthRequest="125" HeightRequest="110" 
+                               HorizontalOptions="Center" VerticalOptions="Center"/>
+                        <Label Grid.Row="1" Text="{Binding name, Mode=TwoWay}" TextColor="{StaticResource NormalColor}" FontFamily="ThemeFont" 
+                               VerticalOptions="End" HorizontalOptions="Start"/>
+                        <Label Grid.Row="1" Text="{Binding Price, StringFormat='RS:{0}/', Mode=TwoWay}" TextColor="Black" FontFamily="ThemeFont"
+                               VerticalOptions="End" HorizontalOptions="End"/>
                     </Grid>
-                    <!--<StackLayout VerticalOptions="Start">
-                                            <Frame Padding="0" HasShadow="False"  HorizontalOptions="Start" VerticalOptions="Start" CornerRadius="10" HeightRequest="150" WidthRequest="150">
-                                                <Image Source="{Binding images[0].src, Mode=TwoWay}" Aspect="Fill" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"/>
-                                            </Frame>
-                                            <Label Text="{Binding name, Mode=TwoWay}" TextColor="Black" FontSize="15" FontFamily="ThemeFontBold" MaxLines="2"/>
-                                            <Label Text="{Binding categories[0].name, Mode=TwoWay}" TextColor="Black" FontSize="12" />
-                                            <Label   TextColor="#62153B" FontSize="12" FontFamily="ThemeFontBold">
-                                                <Label.FormattedText>
-                                                    <FormattedString>
-                                                        <FormattedString.Spans>
-                                                            <Span Text="RS:"/>
-                                                            <Span Text="{Binding Price, Mode=TwoWay}"/>
-                                                            <Span Text=".00/"/>
-                                                        </FormattedString.Spans>
-                                                    </FormattedString>
-                                                </Label.FormattedText>
-                                            </Label>
-                                        </StackLayout>-->
                 </DataTemplate>
             </CollectionView.ItemTemplate>
+            <CollectionView.Footer>
+                <StackLayout Orientation="Horizontal" >
+                    <Label Text="No Filters Applied" FontSize="Large" TextColor="Black" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" />
+                    <Button CornerRadius="30" Text="Filter" BackgroundColor="red" HorizontalOptions="CenterAndExpand" WidthRequest="150"/>
 
+                </StackLayout>
+
+            </CollectionView.Footer>
         </CollectionView>
     </ContentPage.Content>
 </ContentPage>

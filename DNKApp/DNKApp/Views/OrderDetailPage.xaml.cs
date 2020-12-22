@@ -11,12 +11,12 @@ using Xamarin.Forms.Xaml;
 namespace DNKApp.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class Test : ContentPage
+    public partial class OrderDetailPage : ContentPage
     {
-        public Test()
+        public OrderDetailPage(Models.PaymentGetway methods)
         {
             InitializeComponent();
-            BindingContext = new GetwayViewModel();
+            BindingContext = new SummaryViewModel(Navigation);
         }
     }
 }

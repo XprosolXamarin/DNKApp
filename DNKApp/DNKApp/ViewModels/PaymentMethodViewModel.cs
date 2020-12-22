@@ -1,9 +1,12 @@
 ﻿using DNKApp.Models;
 using DNKApp.Services;
 using DNKApp.Views;
+using SQLite;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Essentials;
@@ -11,7 +14,7 @@ using Xamarin.Forms;
 
 namespace DNKApp.ViewModels
 {
-    class PaymentMethodViewModel:BaseViewModel
+    class PaymentMethodViewModel: BaseViewModel
     {
         #region
         private DatePicker _ExDate;
@@ -61,6 +64,7 @@ namespace DNKApp.ViewModels
 
         private string _CVV;
         private INavigation navigation;
+        private SQLiteAsyncConnection _connection;
 
         public string CVV
         {
@@ -74,56 +78,77 @@ namespace DNKApp.ViewModels
         }
         #endregion
         private readonly PaymentGetwayService _paymentGetwayService;
+        public List<PaymentGetway> MethodList { get; set; }
         public ObservableCollection<PaymentGetway> paymentGetways { get; set; }
+       
+        //public ObservableCollection<PaymentGetway> paymentGetways
+        //{
+        //    get { return _paymentGetways; }
+        //    set { _paymentGetways = value; }
+        //}
+
         public PaymentMethodViewModel(INavigation navigation)
         {
             
             this.navigation = navigation;
-            _paymentGetwayService = new PaymentGetwayService();
-            _ = GetListPaymentGetwayAsync();
-           
-        }
-
-        private async Task GetListPaymentGetwayAsync()
-        {
+            _connection = Xamarin.Forms.DependencyService.Get<ISQLiteDb>().GetConnection();
             paymentGetways = new ObservableCollection<PaymentGetway>();
-            var current = Connectivity.NetworkAccess;
+            _ = getallMethodAsync();
+            //_paymentGetwayService = new PaymentGetwayService();
 
-            if (current == NetworkAccess.Internet)
-            {
-                paymentGetways = await _paymentGetwayService.GetPaymentGetwaysAsync();
+            //_ = GetListPaymentGetwayAsync();
 
-
-            }
-            else
-            {
-                await Application.Current.MainPage.DisplayAlert("", "Please Connect with Internet.", "ok");
-                //Isbusy = false;
-            }
         }
 
-        public Command NavigateSummaryPage
+        private async Task getallMethodAsync()
+        {
+          
+            MethodList = await _connection.Table<PaymentGetway>().ToListAsync();
+            await _connection.DropTableAsync<PaymentGetway>();
+            paymentGetways = new ObservableCollection<PaymentGetway>(MethodList);
+        }
+
+        //private async Task GetListPaymentGetwayAsync()
+        //{
+        //    //paymentGetways = new ObservableCollection<PaymentGetway>();
+        //    var current = Connectivity.NetworkAccess;
+
+        //    if (current == NetworkAccess.Internet)
+        //    {
+        //        paymentGetways = await _paymentGetwayService.GetPaymentGetwaysAsync();
+
+
+        //    }
+        //    else
+        //    {
+        //        await Application.Current.MainPage.DisplayAlert("", "Please Connect with Internet.", "ok");
+        //        //Isbusy = false;
+        //    }
+        //}
+
+        public Command<PaymentGetway> NavigateSummaryPage
         {
 
             get
             {
 
-                return new Command(async () =>
+                return new Command<PaymentGetway>(async (PaymentGetway P) =>
                 {
-                    if (codcheckbox)
-                    {
-                        await navigation.PushAsync(new SummaryPage(codcheckbox,Card_Name,Card_Number,CVV));
-                    }
+                    //await navigation.PushAsync(new SummaryPage(P.id,P.title));
+                    //if (codcheckbox)
+                    //{
+                    //    await navigation.PushAsync(new SummaryPage(codcheckbox,Card_Name,Card_Number,CVV));
+                    //}
 
-                    else if (Card_Name == null || Card_Number == null || CVV == null)
-                    {
-                        //DependencyService.Get<IMessage>().Longtime("Please Enter Complete Detail");
-                        await Application.Current.MainPage.DisplayAlert("", "Please enter Complete Detail", "OK");
-                    }
-                    else
-                    {
-                        await navigation.PushAsync(new SummaryPage(codcheckbox, Card_Name, Card_Number, CVV));
-                    }
+                    //else if (Card_Name == null || Card_Number == null || CVV == null)
+                    //{
+                    //    //DependencyService.Get<IMessage>().Longtime("Please Enter Complete Detail");
+                    //    await Application.Current.MainPage.DisplayAlert("", "Please enter Complete Detail", "OK");
+                    //}
+                    //else
+                    //{
+                    //    await navigation.PushAsync(new SummaryPage(codcheckbox, Card_Name, Card_Number, CVV));
+                    //}
                 });
             }
         }
@@ -139,5 +164,6 @@ namespace DNKApp.ViewModels
                 });
             }
         }
+       
     }
 }

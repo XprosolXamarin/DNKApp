@@ -2,28 +2,29 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:tabview="clr-namespace:Xam.Plugin.TabView;assembly=Xam.Plugin.TabView" xmlns:frame="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
              x:Class="DNKApp.Views.PaymentPage">
-    <StackLayout Orientation="Vertical" Padding="20" >
-        <StackLayout Orientation="Horizontal" Spacing="0" Padding="10, 0">
-            <Frame BackgroundColor="White" WidthRequest="20" HeightRequest="20" CornerRadius="50" Padding="7" BorderColor="#FA4248">
-                <Frame BackgroundColor="{StaticResource NormalColor}" CornerRadius="50"/>
-            </Frame>
-            <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand">
-                <BoxView BackgroundColor="{StaticResource NormalColor}" HeightRequest="1"/>
+    <ScrollView>
+        <StackLayout Orientation="Vertical" Padding="20" >
+            <StackLayout Orientation="Horizontal" Spacing="0" Padding="10, 0">
+                <Frame BackgroundColor="White" WidthRequest="20" HeightRequest="20" CornerRadius="50" Padding="7" BorderColor="{StaticResource NormalColor}">
+                    <Frame BackgroundColor="{StaticResource NormalColor}" CornerRadius="50"/>
+                </Frame>
+                <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand">
+                    <BoxView BackgroundColor="{StaticResource NormalColor}" HeightRequest="1"/>
+                </StackLayout>
+                <Frame BackgroundColor="White" WidthRequest="20" HeightRequest="20" CornerRadius="50" Padding="7" BorderColor="#DDDDDD">
+                    <Frame BackgroundColor="{StaticResource NormalColor}" CornerRadius="50"/>
+                </Frame>
+                <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand">
+                    <BoxView BackgroundColor="#DDDDDD" HeightRequest="1"/>
+                </StackLayout>
+                <Frame BackgroundColor="White" WidthRequest="20" HeightRequest="20" CornerRadius="50" Padding="7" BorderColor="#DDDDDD"/>
             </StackLayout>
-            <Frame BackgroundColor="White" WidthRequest="20" HeightRequest="20" CornerRadius="50" Padding="7" BorderColor="#DDDDDD">
-                <Frame BackgroundColor="{StaticResource NormalColor}" CornerRadius="50"/>
-            </Frame>
-            <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand">
-                <BoxView BackgroundColor="#DDDDDD" HeightRequest="1"/>
+            <StackLayout Orientation="Horizontal">
+                <Label Text="Address" TextColor="Black" HorizontalOptions="StartAndExpand"/>
+                <Label Text="Payments" TextColor="#707070" HorizontalOptions="CenterAndExpand"/>
+                <Label Text="Summery" TextColor="#707070" HorizontalOptions="EndAndExpand"/>
             </StackLayout>
-            <Frame BackgroundColor="White" WidthRequest="20" HeightRequest="20" CornerRadius="50" Padding="7" BorderColor="#DDDDDD"/>
-        </StackLayout>
-        <StackLayout Orientation="Horizontal">
-            <Label Text="Address" TextColor="Black" HorizontalOptions="StartAndExpand"/>
-            <Label Text="Payments" TextColor="#707070" HorizontalOptions="CenterAndExpand"/>
-            <Label Text="Summery" TextColor="#707070" HorizontalOptions="EndAndExpand"/>
-        </StackLayout>
-        <tabview:TabViewControl HeaderBackgroundColor="Transparent"
+            <!--<tabview:TabViewControl HeaderBackgroundColor="Transparent"
                                                 HeaderSelectionUnderlineColor="{StaticResource NormalColor}"
                                                 HeaderSelectionUnderlineThickness="2"
                                                 HeaderTabTextColor="{StaticResource NormalColor}"
@@ -50,7 +51,7 @@
                         </tabview:TabItem>
                         <tabview:TabItem HeaderText="Credit/Debit Card">
                             <StackLayout>
-                                <!-- start ADDRESS -->
+                                
                                 <Label Text="Card Name"  FontFamily="ThemeFont" TextColor="#707070" HorizontalOptions="FillAndExpand"/>
                         <Entry Placeholder="Jamesons Dunn" Text="{Binding Card_Name}" FontFamily="ThemeFont" TextColor="Black" HorizontalOptions="FillAndExpand" Keyboard="Text"/>
 
@@ -72,16 +73,48 @@
                                     <CheckBox Color="{StaticResource NormalColor}"/>
                                     <Label Text="Save Card" FontFamily="ThemeFont" VerticalTextAlignment="Center"/>
                                 </StackLayout>
-                                <!-- end ADDRESS -->
+                               
                             </StackLayout>
                         </tabview:TabItem>
                     </tabview:TabViewControl.ItemSource>
-                </tabview:TabViewControl>
-        <StackLayout Orientation="Horizontal" Spacing="30">
-            <Button Text="Back" TextColor="Black" FontFamily="ThemeFontBold" BorderWidth="1" BackgroundColor="Transparent" BorderColor="{StaticResource NormalColor}" HorizontalOptions="FillAndExpand" Command="{Binding popCommand}" />
-            <Button Text="NExt" TextColor="White" FontFamily="ThemeFontBold" BorderWidth="1" BackgroundColor="{StaticResource NormalColor}" HorizontalOptions="FillAndExpand" Command="{Binding NavigateSummaryPage}" />
+                </tabview:TabViewControl>-->
+
+            <CollectionView x:Name="PaymentMethods" Margin="0,20,0,0"  ItemsSource="{Binding Mthds,Mode=TwoWay}" SelectionMode="Single" SelectionChanged="PaymentMethods_SelectionChanged" 
+                        VerticalScrollBarVisibility="Never" 
+                       >
+                <CollectionView.ItemsLayout>
+                    <GridItemsLayout Orientation="Vertical" VerticalItemSpacing="5" HorizontalItemSpacing="10" Span="1"/>
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Padding="5" BackgroundColor="White" >
+                            <Grid.RowDefinitions>
+                                <!--<RowDefinition Height="*"/>-->
+                                <RowDefinition Height="Auto"/>
+
+                            </Grid.RowDefinitions>
+                            <!--<Image Aspect="AspectFill" Source="{Binding images[0].src, Mode=TwoWay}" Margin="10" WidthRequest="125" HeightRequest="110" 
+                               HorizontalOptions="Center" VerticalOptions="Center"/>-->
+                            <!--<Label Grid.Row="0" Text="{Binding id, Mode=TwoWay}" TextColor="{StaticResource NormalColor}" FontFamily="ThemeFont" 
+                            
+                            VerticalOptions="End" HorizontalOptions="Start"/>-->
+                            <Frame  BackgroundColor="LightGreen" Grid.Row="0" HorizontalOptions="FillAndExpand">
+                                <Label  Text="{Binding title, Mode=TwoWay}" TextColor="White" FontFamily="ThemeFontBold"
+                               VerticalTextAlignment="Center" HorizontalTextAlignment="Center"
+                                        FontSize="Medium"/>
+                            </Frame>
+
+
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+            <StackLayout Orientation="Horizontal" Spacing="30">
+                <Button Text="Back" TextColor="Black" FontFamily="ThemeFontBold" BorderWidth="1" BackgroundColor="Transparent" BorderColor="{StaticResource NormalColor}" HorizontalOptions="FillAndExpand" Command="{Binding popCommand}" />
+                <Button Text="NExt" TextColor="White" FontFamily="ThemeFontBold" BorderWidth="1" BackgroundColor="{StaticResource NormalColor}" HorizontalOptions="FillAndExpand" Command="{Binding NavigateSummaryPage}" />
+            </StackLayout>
         </StackLayout>
-    </StackLayout>
-       
-   
+    </ScrollView>
+
+
 </ContentPage>

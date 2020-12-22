@@ -2,55 +2,106 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:tabview="clr-namespace:Xam.Plugin.TabView;assembly=Xam.Plugin.TabView" xmlns:frame="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
              x:Class="DNKApp.Views.Test">
-    <tabview:TabViewControl HeaderBackgroundColor="Transparent"
-                                                HeaderSelectionUnderlineColor="#FA4248"
-                                                HeaderSelectionUnderlineThickness="2"
-                                                HeaderTabTextColor="#FA4248"
-                                                HeaderTabTextFontFamily="ThemeFontBold"
-                                                HeaderTabTextFontSize="14"
-                                                HorizontalOptions="FillAndExpand"
-                                                VerticalOptions="FillAndExpand"
-                                                IsSwipeEnabled="True"
-                                                TabHeaderSpacing="0"
-                                                ContentHeight="300">
-        <tabview:TabViewControl.ItemSource>
-            <tabview:TabItem HeaderText="cashOnDelivery}">
-                <StackLayout VerticalOptions="StartAndExpand" Spacing="0" Padding="0, 20, 0, 0">
-                    <frame:PancakeView CornerRadius="10, 10, 0, 0" Padding="20" BackgroundColor="#FFF5F6">
-                        <Image Source="codImage.png" HorizontalOptions="FillAndExpand" Aspect="AspectFit"/>
-                    </frame:PancakeView>
-                    <frame:PancakeView CornerRadius="0, 0, 10, 10" Padding="10" BackgroundColor="#FFFCFC">
-                        <Label Text="payAtDoorStep}" FontFamily="ThemeFont" TextColor="Black"/>
-                    </frame:PancakeView>
-                </StackLayout>
-            </tabview:TabItem>
-            <tabview:TabItem HeaderText="Credit/Debit Card">
-                <StackLayout>
-                    <!-- start ADDRESS -->
-                    <Label Text="cardName}" FontFamily="ThemeFont" TextColor="#707070" HorizontalOptions="FillAndExpand"/>
-                    <Entry Placeholder="Jamesons Dunn" FontFamily="ThemeFont" TextColor="Black" HorizontalOptions="FillAndExpand" Keyboard="Text"/>
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout Orientation="Vertical" Padding="20">
 
-                    <Label Text="cardNumber}" FontFamily="ThemeFont" TextColor="#707070" HorizontalOptions="FillAndExpand"/>
-                    <Entry Placeholder="4560 5644 3224 4543" FontFamily="ThemeFont" TextColor="Black" HorizontalOptions="FillAndExpand" Keyboard="Numeric"/>
-
-                    <StackLayout Orientation="Horizontal">
-                        <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand">
-                            <Label Text="cardExpiry}" FontFamily="ThemeFont" TextColor="#707070" HorizontalOptions="FillAndExpand"/>
-                            <DatePicker MinimumDate="01/01/2018" MaximumDate="01/01/2020" Date="01/01/2019" FontFamily="ThemeFont" TextColor="Black" HorizontalOptions="FillAndExpand"/>
-                        </StackLayout>
-                        <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand">
-                            <Label Text="CVV}" FontFamily="ThemeFont" TextColor="#707070" HorizontalOptions="FillAndExpand"/>
-                            <Entry Placeholder="467" FontFamily="ThemeFont" TextColor="Black" HorizontalOptions="FillAndExpand" Keyboard="Numeric"/>
-                        </StackLayout>
+                <!-- start TIMELINE BUBBLES -->
+                <StackLayout Orientation="Horizontal" Spacing="0" Padding="10, 0">
+                    <Frame BackgroundColor="White" WidthRequest="20" HeightRequest="20" CornerRadius="50" Padding="7" BorderColor="{StaticResource NormalColor}">
+                        <Frame BackgroundColor="{StaticResource NormalColor}" CornerRadius="50"/>
+                    </Frame>
+                    <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand">
+                        <BoxView BackgroundColor="{StaticResource NormalColor}" HeightRequest="1"/>
                     </StackLayout>
-
-                    <StackLayout Orientation="Horizontal">
-                        <CheckBox Color="#FA4248"/>
-                        <Label Text="saveCard}" FontFamily="ThemeFont" VerticalTextAlignment="Center"/>
+                    <Frame BackgroundColor="White" WidthRequest="20" HeightRequest="20" CornerRadius="50" Padding="7" BorderColor="{StaticResource NormalColor}">
+                        <Frame BackgroundColor="{StaticResource NormalColor}" CornerRadius="50"/>
+                    </Frame>
+                    <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand">
+                        <BoxView BackgroundColor="{StaticResource NormalColor}" HeightRequest="1"/>
                     </StackLayout>
-                    <!-- end ADDRESS -->
+                    <Frame BackgroundColor="White" WidthRequest="20" HeightRequest="20" CornerRadius="50" Padding="7" BorderColor="#DDDDDD">
+                        <Frame BackgroundColor="{StaticResource NormalColor}" CornerRadius="50"/>
+                    </Frame>
                 </StackLayout>
-            </tabview:TabItem>
-        </tabview:TabViewControl.ItemSource>
-    </tabview:TabViewControl>
+                <StackLayout Orientation="Horizontal">
+                    <Label Text="Address" TextColor="Black" HorizontalOptions="StartAndExpand"/>
+                    <Label Text="Payments" TextColor="#707070" HorizontalOptions="CenterAndExpand"/>
+                    <Label Text="Summary" TextColor="#707070" HorizontalOptions="EndAndExpand"/>
+                </StackLayout>
+                <!-- end TIMELINE BUBBLES -->
+
+                <Label Text="Summary" TextColor="Black" FontFamily="ThemeFontBold" FontSize="Medium" Margin="0, 20"/>
+                <CollectionView
+                    ItemsSource="{Binding invoice}"
+                    SelectionMode="None"
+                    HeightRequest="160"
+                    Margin="10">
+                    <CollectionView.ItemsLayout>
+                        <GridItemsLayout Orientation="Horizontal"
+                                         HorizontalItemSpacing="20"/>
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <StackLayout Padding="0" Orientation="Vertical">
+                                <Frame CornerRadius="20" BorderColor="#EBEBEB" HasShadow="False" IsClippedToBounds="True" HeightRequest="120" WidthRequest="120" Padding="0">
+                                    <Image Source="{Binding imagepath}" Aspect="Fill"/>
+                                </Frame>
+                                <Label Text="{Binding name}" FontFamily="ThemeFont" FontSize="Small" TextColor="Black"/>
+                                <Label Text="{Binding SRate}" FontFamily="ThemeFont" FontSize="Small" TextColor="{StaticResource NormalColor}"/>
+                            </StackLayout>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+
+                <BoxView BackgroundColor="#EBEBEB" HeightRequest="2" HorizontalOptions="FillAndExpand"/>
+
+                <!-- start SHIPPING ADDRESS -->
+                <StackLayout Orientation="Horizontal" Margin="0, 20">
+                    <Label Text="Shopping Address" FontFamily="ThemeFontBold" TextColor="Black" HorizontalOptions="StartAndExpand" FontSize="Medium"/>
+                    <Frame CornerRadius="50" BackgroundColor="Transparent" Padding="6, 2" HeightRequest="20" WidthRequest="20">
+                        <Image Source="tick.png" Aspect="AspectFit"/>
+                    </Frame>
+                </StackLayout>
+                <Label Text="12, Bay brook, Sharps Rd, Keilor East, Melbourne, Australia" FontFamily="ThemeFont" TextColor="Black" FontSize="Small"/>
+                <Button Text="Change" FontFamily="ThemeFontBold" BackgroundColor="Transparent" HorizontalOptions="Start" Margin="-15, 0, 0, 0" TextColor="{StaticResource NormalColor}"/>
+                <!-- end SHIPPING ADDRESS -->
+
+                <BoxView BackgroundColor="#EBEBEB" HeightRequest="2" HorizontalOptions="FillAndExpand"/>
+
+                <!-- start PAYMENT INFO -->
+                <StackLayout Orientation="Horizontal" Margin="0, 20">
+                    <Label Text="Payments" FontFamily="ThemeFontBold" TextColor="Black" HorizontalOptions="StartAndExpand" FontSize="Medium"/>
+
+                </StackLayout>
+                <StackLayout Orientation="Horizontal" Spacing="10">
+                    <Image Source="masterCard.png" Aspect="AspectFit"/>
+                    <Label FontFamily="ThemeFont">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <FormattedString.Spans>
+                                    <Span Text="Master Card" FontSize="Micro" TextColor="#929292"/>
+                                    <Span Text="New Line"/>
+                                    <Span Text="**** **** ****  4547" FontSize="Small" TextColor="Black"/>
+                                </FormattedString.Spans>
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                    <Frame CornerRadius="50" BackgroundColor="Transparent" Padding="6, 8" VerticalOptions="CenterAndExpand" HorizontalOptions="EndAndExpand" HeightRequest="20" WidthRequest="20">
+                        <Image Source="tick.png" Aspect="AspectFit"/>
+                    </Frame>
+                </StackLayout>
+                <Button Text="Change" FontFamily="ThemeFontBold" BackgroundColor="Transparent" HorizontalOptions="Start" Margin="-15, 0, 0, 0" TextColor="{StaticResource NormalColor}"/>
+                <!-- end PAYMENT INFO -->
+
+                <!-- start BOTTOM BUTTONS -->
+                <StackLayout Orientation="Horizontal" Spacing="20">
+                    <Button Text="Back" TextColor="Black" CornerRadius="10" BorderWidth="1" BackgroundColor="Transparent" BorderColor="{StaticResource NormalColor}" HorizontalOptions="FillAndExpand" Command="{Binding popCommand}" />
+                    <Button Text="Place order" TextColor="White" CornerRadius="10" BorderWidth="1" BackgroundColor="{StaticResource NormalColor}" HorizontalOptions="FillAndExpand" Command="{Binding PlaceOrder}"/>
+                </StackLayout>
+                <!-- end BOTTOM BUTTONS -->
+
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
 </ContentPage>
