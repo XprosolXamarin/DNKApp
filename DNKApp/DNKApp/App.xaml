@@ -6,7 +6,8 @@
         <ResourceDictionary>
 
             <Color x:Key="NormalColor">#530100</Color>
-                <Color x:Key="seperatorGrey">#E6E6E6</Color>
+            <Color x:Key="Bg">#F0FFF0</Color>
+            <Color x:Key="ButtonBackground">#530100</Color>
            
             <OnPlatform x:TypeArguments="x:String" x:Key="PlayfairBold">
                 <On Platform="Android" Value="PlayfairDisplay-Bold.ttf#Playfair Display Bold" />

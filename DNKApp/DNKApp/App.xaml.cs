@@ -11,7 +11,7 @@ namespace DNKApp
         {
             InitializeComponent();
            
-            MainPage = new SplashPage();
+            MainPage = new NavigationPage(new StartingPage());
         }
 
         protected override void OnStart()

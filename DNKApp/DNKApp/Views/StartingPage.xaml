@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="DNKApp.Views.StartingPage"
+             BackgroundColor="{StaticResource Bg}"
+             NavigationPage.HasNavigationBar="False">
+    <ContentPage.Content>
+        <Grid Margin="10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                
+            </Grid.RowDefinitions>
+            <Image Source="logo.png"  WidthRequest="150" Grid.Row="0"
+                   Aspect="AspectFit" Margin="0,50,0,0" HorizontalOptions="CenterAndExpand"
+                   VerticalOptions="Start"/>
+            <Label Text="Search You Need" FontFamily="ThemeFontBold" TextColor="Black" Grid.Row="1"
+                   FontSize="Title" HorizontalOptions="CenterAndExpand"/>
+            <Image Source="syn.png" Grid.Row="2" />
+            <Button BackgroundColor="{StaticResource NormalColor}" Grid.Row="3"
+                    Text="Start Shopping" TextColor="{StaticResource Bg}"
+                    Command="{Binding MainNavigation}" CommandParameter="pushAppShell"/>
+            <StackLayout Orientation="Horizontal" Grid.Row="4"  Padding="10" VerticalOptions="EndAndExpand">
+
+                <Button  HorizontalOptions="CenterAndExpand" Padding="40,0,40,0" Text="Signin"
+                        BackgroundColor="Transparent" BorderColor="{StaticResource NormalColor}" 
+                        BorderWidth="1"
+                        Command="{Binding MainNavigation}" CommandParameter="pushSignin"/>
+                <Button HorizontalOptions="CenterAndExpand"  Padding="40,0,40,0" 
+                        Text="Signup" BackgroundColor="{StaticResource NormalColor}"
+                        TextColor="White"
+                        Command="{Binding MainNavigation}" CommandParameter="pushSignup"/>
+            </StackLayout>
+
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

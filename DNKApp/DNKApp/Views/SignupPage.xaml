@@ -1,0 +1,71 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:yummy="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+             x:Class="DNKApp.Views.SignupPage"
+             BackgroundColor="{StaticResource Bg}"
+             NavigationPage.HasNavigationBar="False"
+             >
+    <ContentPage.Content>
+        <Grid >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+
+            </Grid.RowDefinitions>
+            <Image Source="logo.png"  WidthRequest="150" Grid.Row="0"
+                   Aspect="AspectFit" Margin="0,50,0,0" HorizontalOptions="CenterAndExpand"
+                   VerticalOptions="Start"/>
+            <Label Text="Sign up" FontFamily="ThemeFontBold" TextColor="Black" Grid.Row="1"
+                   FontSize="Title" HorizontalOptions="CenterAndExpand"/>
+            <StackLayout Grid.Row="2">
+               
+                <ScrollView>
+
+
+                    <StackLayout Margin="15,15,5,5" Spacing="10" Visual="Material">
+                        <StackLayout Orientation="Horizontal">
+                            <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand">
+                                <Entry Placeholder="First Name" Text="{Binding first_name}" TextColor="Black" HorizontalOptions="FillAndExpand" FontFamily="ThemeFont"/>
+                            </StackLayout>
+                            <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand">
+                                <Entry Placeholder="Last Name" Text="{Binding last_name}" TextColor="Black" HorizontalOptions="FillAndExpand" FontFamily="ThemeFont"/>
+                            </StackLayout>
+                        </StackLayout>
+
+                        <Entry Placeholder="Username" Text="{Binding Username}" HorizontalOptions="FillAndExpand" />
+
+
+                        
+
+                        <Entry Placeholder="Password" Text="{Binding Password}" HorizontalOptions="FillAndExpand" IsPassword="True" MaxLength="8" />
+                        <Entry Placeholder="Confirm Password"  HorizontalOptions="FillAndExpand" IsPassword="True" />
+                        <Entry Placeholder="Email" Text="{Binding Username}" HorizontalOptions="FillAndExpand" />
+
+                        <Entry Placeholder="Phone No" HorizontalOptions="FillAndExpand" />
+                        
+                        <Button Text="Register" BackgroundColor="{StaticResource Key=NormalColor}" TextColor="White" FontAttributes="Bold" CornerRadius="10" Margin="0,10,0,0" Command="{Binding RegisterCommand}"/>
+
+                        <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand" Margin="0,10,0,0">
+                            <Label Text="Already have a Account?"/>
+                            <Label Text="Sign in"
+                                       TextColor="{StaticResource Key=NormalColor}">
+                                <Label.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding NavigateToSigninCommand}"/>
+                                </Label.GestureRecognizers>
+                            </Label>
+
+                        </StackLayout>
+
+
+
+                    </StackLayout>
+                </ScrollView>
+
+
+            </StackLayout>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>
