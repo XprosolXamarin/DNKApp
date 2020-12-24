@@ -53,9 +53,9 @@ namespace DNKApp.ViewModels
                         await _connection.InsertAsync(list);
                     }
                 }
-                
-                
-                Application.Current.MainPage = new AppShell();
+
+
+                Application.Current.MainPage = new NavigationPage(new StartingPage());
                 
                 
             }
