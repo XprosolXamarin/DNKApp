@@ -19,4 +19,6 @@ namespace DNKApp.Views
             BindingContext = new SignupViewModel();
         }
     }
+
+   
 }

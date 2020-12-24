@@ -1,7 +1,10 @@
-﻿using DNKApp.Models;
+﻿using DNKApp.Helpers;
+using DNKApp.Models;
 using DNKApp.Services;
+using DNKApp.Views;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
 using System.Windows.Input;
 using Xamarin.Essentials;
@@ -41,7 +44,7 @@ namespace DNKApp.ViewModels
             }
         }
         private String _UserName;
-
+       
         public String UserName
         {
             get
@@ -69,7 +72,7 @@ namespace DNKApp.ViewModels
             }
         }
         private String _Address;
-
+        
         public String Address
         {
             get
@@ -83,7 +86,7 @@ namespace DNKApp.ViewModels
             }
         }
         private String _Sate;
-
+        
         public String Sate
         {
             get
@@ -139,6 +142,7 @@ namespace DNKApp.ViewModels
             }
         }
         private String _ConfirmPassword;
+        private SignupPage signupPage;
 
         public String ConfirmPassword
         {
@@ -154,17 +158,21 @@ namespace DNKApp.ViewModels
         }
         #endregion
         private readonly RegisterService _registerService;
+       
+
         public SignupViewModel()
         {
+           
             _registerService = new RegisterService();
         }
+
         public ICommand RegisterCommand
         {
             get
             {
                 return new Command(async () =>
                 {
-
+                    
 
                     var user = new clsUsers
                     {
@@ -197,11 +205,19 @@ namespace DNKApp.ViewModels
                         }
 
                     };
+
                     var current = Connectivity.NetworkAccess;
 
                     if (current == NetworkAccess.Internet)
                     {
-                        await _registerService.RegisterUserAsync(user);
+                        if (Password == ConfirmPassword)
+                        {
+                            await _registerService.RegisterUserAsync(user, Password);
+                        }
+                        else
+                        {
+                          await  Application.Current.MainPage.DisplayAlert("", "Don't Match Password", "ok");
+                        }
                     }                        
                 });
             }
