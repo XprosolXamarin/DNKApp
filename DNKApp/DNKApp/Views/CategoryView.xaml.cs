@@ -19,5 +19,15 @@ namespace DNKApp.Views
             InitializeComponent();
             BindingContext = new CategoryViewModel(category);
         }
+
+        private async void Categories_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var ProductDetailView = e.CurrentSelection.FirstOrDefault() as Product;
+            if (ProductDetailView == null)
+                return;
+            await Navigation.PushModalAsync(new ProductDetailView(ProductDetailView));
+            _ = ((CollectionView)sender).SelectedItem == null;
+
+        }
     }
 }

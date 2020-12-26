@@ -1,39 +1,93 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="DNKApp.Views.CategoryView">
+             x:Class="DNKApp.Views.CategoryView"
+             xmlns:Helpers="clr-namespace:DNKApp.Helpers">
     <ContentPage.Content>
+        <Grid RowSpacing="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0" BackgroundColor="White" ColumnSpacing="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                    
+                </Grid.ColumnDefinitions>
+                <Frame Grid.Row="0" Padding="0" HasShadow="False">
+                    <StackLayout  Padding="20,5,20,0">
+                        <Image Source="logo.png" HeightRequest="48" WidthRequest="48"  HorizontalOptions="Start"/>
+                    </StackLayout>
+                </Frame>
 
-        <CollectionView x:Name="Categories" Margin="0,20,0,0" Grid.Row="1" ItemsSource="{Binding ProductsByCategory,Mode=TwoWay}" SelectionMode="Single" 
+               
+
+               
+
+                <ImageButton Grid.Row="0" Grid.Column="1" BackgroundColor="White"
+                             Source="{FontImage FontFamily=FontAwesome,
+                    Glyph={x:Static Helpers:IconFonts.Cart},Size=40,Color={StaticResource NormalColor}}"
+                             Margin="0,0,10,0" HorizontalOptions="End"
+                             Command="{Binding ViewCartCommand}"/>
+                
+                <Label Text="5" FontSize="Subtitle"
+                       Grid.Row="0" Grid.Column="1" 
+                       TextColor="White"
+                       HorizontalTextAlignment="Center" VerticalTextAlignment="Start"/>
+
+
+
+            </Grid>
+           
+            <CollectionView x:Name="Categories" Margin="20,20,20,0" Grid.Row="1" ItemsSource="{Binding ProductsByCategory,Mode=TwoWay}" SelectionMode="Single" 
+                        SelectionChanged="Categories_SelectionChanged"
                         VerticalScrollBarVisibility="Never" 
                        >
-            <CollectionView.ItemsLayout>
-                <GridItemsLayout Orientation="Vertical" VerticalItemSpacing="10" HorizontalItemSpacing="10" Span="2"/>
-            </CollectionView.ItemsLayout>
-            <CollectionView.ItemTemplate>
-                <DataTemplate>
-                    <Grid Padding="5" BackgroundColor="White" WidthRequest="145" HeightRequest="160">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="Auto"/>
-                        </Grid.RowDefinitions>
-                        <Image Aspect="AspectFill" Source="{Binding images[0].src, Mode=TwoWay}" Margin="10" WidthRequest="125" HeightRequest="110" 
-                               HorizontalOptions="Center" VerticalOptions="Center"/>
-                        <Label Grid.Row="1" Text="{Binding name, Mode=TwoWay}" TextColor="{StaticResource NormalColor}" FontFamily="ThemeFont" 
+                <CollectionView.ItemsLayout>
+                    <GridItemsLayout Orientation="Vertical" VerticalItemSpacing="20" HorizontalItemSpacing="20" Span="2"/>
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Frame Padding="0" Grid.Row="0" HeightRequest="150" >
+                                <Image Aspect="AspectFill" Source="{Binding images[0].src, Mode=TwoWay}" 
+                               HorizontalOptions="FillAndExpand" />
+                                <Frame.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding Path=BindingContext.Preview, Source={x:Reference Categories}, Mode=TwoWay}"/>
+                                </Frame.GestureRecognizers>
+                            </Frame>
+                            <Label Grid.Row="1" Text="{Binding name, Mode=TwoWay}" TextColor="Black" FontFamily="ThemeFontBold" 
+                               VerticalOptions="End" HorizontalOptions="Start" FontSize="Medium"/>
+                            <Label Grid.Row="2" Text="{Binding categories[0].name, Mode=TwoWay}"  FontFamily="ThemeFont" 
                                VerticalOptions="End" HorizontalOptions="Start"/>
-                        <Label Grid.Row="1" Text="{Binding Price, StringFormat='RS:{0}/', Mode=TwoWay}" TextColor="Black" FontFamily="ThemeFont"
-                               VerticalOptions="End" HorizontalOptions="End"/>
-                    </Grid>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-            <CollectionView.Footer>
-                <StackLayout Orientation="Horizontal" >
-                    <Label Text="No Filters Applied" FontSize="Large" TextColor="Black" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" />
-                    <Button CornerRadius="30" Text="Filter" BackgroundColor="red" HorizontalOptions="CenterAndExpand" WidthRequest="150"/>
+                            <Label Grid.Row="3"  TextColor="Black" FontFamily="ThemeFontBold"
+                               VerticalOptions="End" HorizontalOptions="Start">
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <FormattedString.Spans>
+                                            <Span Text="Rs"/>
+                                            <Span Text="{Binding Price,  Mode=TwoWay}"/>
+                                            <Span Text=".00"/>
+                                        </FormattedString.Spans>
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
 
-                </StackLayout>
-
-            </CollectionView.Footer>
-        </CollectionView>
+            </CollectionView>
+        </Grid>
     </ContentPage.Content>
 </ContentPage>

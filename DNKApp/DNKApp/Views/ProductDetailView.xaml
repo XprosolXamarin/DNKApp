@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="DNKApp.Views.ProductDetailView">
+    <ContentPage.Content>
+        <ScrollView VerticalScrollBarVisibility="Never" Orientation="Vertical">
+            <Grid >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+
+                </Grid.RowDefinitions>
+                <Frame Grid.Row="0" Padding="0" HorizontalOptions="FillAndExpand" VerticalOptions="Start">
+                    <Image Source="{Binding productDetailView.images[0].src,Mode=TwoWay}"  Aspect="AspectFill"/>
+                </Frame>
+                <Label Text="{Binding productDetailView.name}" Margin="20,20,20,0" Grid.Row="1" FontFamily="ThemeFontBold" TextColor="#530100" FontSize="Large"/>
+                <Label  Margin="20,0,20,0" Grid.Row="2" FontFamily="ThemeFontBold" FontSize="Medium" TextColor="Black" >
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <FormattedString.Spans>
+                                <Span Text="Rs:"/>
+                                <Span Text="{Binding productDetailView.Price}"/>
+                                <Span Text=".00"/>
+                            </FormattedString.Spans>
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+
+                <Label Text="{Binding productDetailView.description}"  TextColor="Black" Margin="20,0,20,0" Grid.Row="3" LineBreakMode="WordWrap" HorizontalTextAlignment="Start" TextType="Html" />
+                <StackLayout Orientation="Horizontal" Grid.Row="4" Margin="20,0,20,0">
+                    <StackLayout Orientation="Horizontal" Spacing="14"   >
+                        <Frame BackgroundColor="{StaticResource Key=NormalColor}" Padding="0" >
+                            <Label Margin="5,0,5,5" TextColor="White" Text="-" FontSize="Small" FontFamily="ThemeFontBold" WidthRequest="30" HeightRequest="25" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" >
+                                <Label.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding DecreaseQtyCommand}" />
+                                </Label.GestureRecognizers>
+                            </Label>
+                        </Frame>
+
+                        <Label Text="{Binding Quantity}" FontSize="Small" VerticalTextAlignment="Center" TextColor="Black" />
+                        <Frame BackgroundColor="{StaticResource Key=NormalColor}" Padding="0" HorizontalOptions="End">
+                            <Label TextColor="White" Margin="5,0,5,0" Text="+"  FontSize="Small" WidthRequest="30" HeightRequest="25" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontFamily="ThemeFontBold">
+                                <Label.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding IncreaseQtyCommand}"/>
+                                </Label.GestureRecognizers>
+                            </Label>
+                        </Frame>
+                    </StackLayout>
+                    <Frame Padding="10" BackgroundColor="{StaticResource NormalColor}" HorizontalOptions="EndAndExpand">
+                        <Label Text="Add to Cart" TextColor="White" FontFamily="ThemeFontBold" FontSize="Small" HorizontalOptions="EndAndExpand">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding AddtoCart}"/>
+                            </Label.GestureRecognizers>
+                        </Label>
+                    </Frame>
+                    
+
+                </StackLayout>
+                <Label Grid.Row="5" Margin="20,0,20,0" TextColor="Black" >
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <FormattedString.Spans>
+                                <Span Text="Category:"/>
+                                <Span Text="{Binding productDetailView.categories[0].name}"/>
+                            </FormattedString.Spans>
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+                <Label Grid.Row="6" Margin="20,0,20,0" Text="Description:" FontSize="Medium" TextColor="Black"/>
+                <Label Grid.Row="7" Text="{Binding productDetailView.short_description}"  TextColor="Black" Margin="20,0,20,0" LineBreakMode="WordWrap" HorizontalTextAlignment="Start" TextType="Html" />
+
+            </Grid>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

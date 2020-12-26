@@ -1,16 +1,43 @@
 ﻿using DNKApp.Models;
 using DNKApp.Services;
+using DNKApp.Views;
+using Xamarin.Forms;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Rg.Plugins.Popup.Extensions;
 
 namespace DNKApp.ViewModels
 {
     public class CategoryViewModel : BaseViewModel
     {
+        private bool _Isbusy;
+        public bool Isbusy
+        {
+            get
+            {
+                return _Isbusy;
+            }
+            set
+            {
+                _Isbusy = value;
+                if (_Isbusy)
+                {
+                    Application.Current.MainPage.Navigation.PushPopupAsync(new IndicatorActity());
+
+                }
+                else
+                {
+                    Application.Current.MainPage.Navigation.PopPopupAsync();
+
+                }
+
+                OnPropertyChanged();
+            }
+        }
         public ObservableCollection<Product> _CollectionsList { get; set; }
         public ObservableCollection<Product> CollectionsList
         {
@@ -54,10 +81,12 @@ namespace DNKApp.ViewModels
         }
         public CategoryViewModel(Category category)
         {
+            Isbusy = true;
             SelectedCategory = category;
             ProductsByCategory = new ObservableCollection<Product>();
             _itemlistapi = new ItemsListApi();
             GetFoodItems(category.id);
+            Isbusy = false;
 
         }
        
@@ -65,6 +94,7 @@ namespace DNKApp.ViewModels
         {
             CollectionsList = await _itemlistapi.GetListofItems();
             var ProductItemsByCategory = new ObservableCollection<Product>();
+           
             var items = CollectionsList.Where(p => p.categories[0].id == categoryID).ToList();
             foreach (var item in items)
             {
@@ -77,7 +107,9 @@ namespace DNKApp.ViewModels
             {
                 ProductsByCategory.Add(item);
             }
+            
             TotalProduuctItems = ProductsByCategory.Count;
         }
+       
     }
 }

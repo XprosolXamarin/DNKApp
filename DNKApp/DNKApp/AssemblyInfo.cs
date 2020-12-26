@@ -6,7 +6,7 @@ using Xamarin.Forms.Xaml;
 [assembly: ExportFont("Roboto-Regular.ttf", Alias = "ThemeFont")]
 [assembly: ExportFont("Roboto-Medium.ttf", Alias = "ThemeFontMedium")]
 [assembly: ExportFont("Roboto-Bold.ttf", Alias = "ThemeFontBold")]
-[assembly: ExportFont("materialdesignicons-webfont.ttf", Alias = "UserIcon")]
+[assembly: ExportFont("materialdesignicons-webfont.ttf", Alias = "FontAwesome")]
 [assembly: Application(UsesCleartextTraffic = true)]
 [assembly: UsesPermission(Android.Manifest.Permission.AccessNetworkState)]
 [assembly: UsesPermission(Android.Manifest.Permission.Vibrate)]

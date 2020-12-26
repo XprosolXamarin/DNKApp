@@ -36,9 +36,9 @@
 
 
                     <StackLayout Padding="10" Margin="15,25,0,0" Spacing="10" Visual="Material">
-                        <Entry Placeholder="Username" Text="{Binding Username}" HorizontalOptions="FillAndExpand" />
+                        <Entry Placeholder="Username" Text="{Binding user_login}" HorizontalOptions="FillAndExpand" />
 
-                        <Entry Placeholder=" Password" Text="{Binding Password}" HorizontalOptions="FillAndExpand" IsPassword="True" />
+                        <Entry Placeholder=" Password" Text="{Binding password}" HorizontalOptions="FillAndExpand" IsPassword="True" />
                         <StackLayout Orientation="Horizontal">
                             <StackLayout Orientation="Horizontal" Spacing="0" Padding="0" HorizontalOptions="StartAndExpand">
 
