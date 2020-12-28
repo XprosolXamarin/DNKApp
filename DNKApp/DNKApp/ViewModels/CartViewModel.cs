@@ -1,6 +1,7 @@
 ﻿using DNKApp.Helpers;
 using DNKApp.Models;
 using DNKApp.Services;
+using DNKApp.Utlities;
 using DNKApp.Views;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -33,7 +34,7 @@ namespace DNKApp.ViewModels
         }
        
         private INavigation navigation;
-       
+        private readonly LoginService _loginService;
         private SQLiteAsyncConnection _connection;
         public List<clsInvoice> _myCollection;
         public List<clsInvoice> myCollection
@@ -70,7 +71,7 @@ namespace DNKApp.ViewModels
             _connection = Xamarin.Forms.DependencyService.Get<ISQLiteDb>().GetConnection();
            
             _ = getallcaetitem();
-            
+            _loginService = new LoginService();
 
 
 
@@ -119,6 +120,7 @@ namespace DNKApp.ViewModels
                     TBill = invoice.Sum(s => s.SRate);
                     var invoiceU = new clsInvoice { id = p.id, name = p.name, SRate = p.SRate, FRate = p.FRate, quantity = p.quantity, imagepath = p.imagepath };
                     var abc = await _connection.UpdateAsync(invoiceU);
+                   
                     // var a = invoice[p.ID];
                     // await _connection.UpdateAsync(a);
 
@@ -189,7 +191,26 @@ namespace DNKApp.ViewModels
 
                 return new Command(async () =>
                 {
-                   await navigation.PushAsync(new BillingdetailsPage());
+                    try
+                    {
+                        var username = Utilty.GetSecureStorageValueFor(Utilty.UserName);
+                        var password = Utilty.GetSecureStorageValueFor(Utilty.Password);
+                        var response1 = await _loginService.UserLoginAsync(username.Result, password.Result);
+                        if (response1.Status)
+                        {
+                          await  navigation.PushAsync(new PaymentPage());
+                        }
+                        else
+                        {
+                          await  navigation.PushAsync(new BillingdetailsPage());
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        // Possible that device doesn't support secure storage on device.
+                    }
+
+                   // await navigation.PushAsync(new BillingdetailsPage());
                 });
             }
         }

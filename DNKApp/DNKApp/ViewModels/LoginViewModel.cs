@@ -50,10 +50,16 @@ namespace DNKApp.ViewModels
                     if (current == NetworkAccess.Internet)
                     {
                        
-                            await _loginService.UserLoginAsync(user_login, password);
-                       
-                            //await Application.Current.MainPage.DisplayAlert("", "Don't Match Password", "ok");
+                       var response=     await _loginService.UserLoginAsync(user_login, password);
                         
+                        if (response.Status)
+                        {
+                             Application.Current.MainPage = new AppShell();
+                        }
+                        else
+                        {
+                            await Application.Current.MainPage.DisplayAlert("", response.Message, "ok");
+                        }
                     }
                 });
             }

@@ -1,4 +1,5 @@
-﻿using DNKApp.Utlities;
+﻿using DNKApp.Models;
+using DNKApp.Utlities;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
@@ -13,8 +14,15 @@ namespace DNKApp.Services
 {
     public class LoginService
     {
-        internal async Task UserLoginAsync(string user_login, string password)
+        internal async Task<clsLoginResponse> UserLoginAsync(string user_login, string password)
         {
+            clsLoginResponse res = new clsLoginResponse();
+            res = new clsLoginResponse()
+            {
+                Message = "",
+                Status = false,
+                UserId = ""
+            };
             var Httpclient = new HttpClient();
         
             var url1 = "http://qepdns.com/api/login.php?user_login=" + user_login + "&password=" + password;
@@ -26,21 +34,32 @@ namespace DNKApp.Services
 
             if (response.StatusCode == HttpStatusCode.OK)
             {
+               
+               
 
-                
-                var responseContent1 = await response.Content.ReadAsStringAsync();
+               var responseContent1 = await response.Content.ReadAsStringAsync();
                 var jObject1 = JObject.Parse(responseContent1);
-                string msg = (string)jObject1.GetValue("msg");
-                string id = (string)jObject1.GetValue("user_id");
-                if (id != null)
+              bool  status = (bool)jObject1.GetValue("status");
+              string  id = (string)jObject1.GetValue("id");
+                res =new clsLoginResponse()
                 {
-                    await SecureStorage.SetAsync("tokenp", "user_login");
-                    await SecureStorage.SetAsync("tokenn", "password");
-                    await SecureStorage.SetAsync("tokenid", "id");
+                  Message = (string)jObject1.GetValue("msg"),
+                UserId = (string)jObject1.GetValue("user_id"),
+                Status=status,
+            };
+                
+                if (status)
+                {
+                    await Utilty.SetSecureStorageValue(Utilty.UserName, user_login);
+                    await Utilty.SetSecureStorageValue(Utilty.Password, password);
+                    await Utilty.SetSecureStorageValue(Utilty.UserId, id);
+                   
+                    
 
                 }
-                await Xamarin.Forms.Application.Current.MainPage.DisplayAlert("", msg, "Ok");
+              //  await Xamarin.Forms.Application.Current.MainPage.DisplayAlert("", msg, "Ok");
             }
+            return res;
             
         }
     }
