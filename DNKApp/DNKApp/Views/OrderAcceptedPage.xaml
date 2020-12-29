@@ -22,7 +22,7 @@
                                     <FormattedString.Spans>
                                         <Span Text="Your Order No"/>
                                         <Span Text=" "/>
-                                        <Span Text="#65474"/>
+                                        <Span Text="{Binding orderid,Mode=TwoWay}"/>
                                         <Span Text=" "/>
                                         <Span Text="has Placed"/>
                                     </FormattedString.Spans>

@@ -10,7 +10,9 @@ namespace DNKApp.Utlities
     {
         public static string UserName = "Username";
         public static string Password = "Password";
-        public static string UserId = "id";
+        public static string UserId = "UserId";
+        public static string UserEmail = "UserEmail";
+        public static string display_name = "display_name";
 
         public static async Task SetSecureStorageValue(string key, string value)
         {

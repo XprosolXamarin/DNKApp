@@ -2,8 +2,14 @@
 <Shell xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="DNKApp.AppShell"
+            Shell.BackgroundColor="{StaticResource NormalColor}"
              xmlns:views="clr-namespace:DNKApp.Views"
-             Shell.NavBarIsVisible="False">
+       xmlns:local="clr-namespace:DNKApp"
+       xmlns:Helpers="clr-namespace:DNKApp.Helpers"
+       >
+    <Shell.FlyoutHeader>
+        <local:HeaderContentView/>
+    </Shell.FlyoutHeader>
     <Shell.Resources>
         <ResourceDictionary>
             <Color x:Key="ThemeColor">#530100</Color>
@@ -22,8 +28,71 @@
             <Style TargetType="TabBar" BasedOn="{StaticResource BaseStyle}"/>
         </ResourceDictionary>
     </Shell.Resources>
+    <FlyoutItem Title="MyTabApp"
+               Shell.TabBarIsVisible="False"
+               FlyoutDisplayOptions="AsMultipleItems">
 
-    <TabBar>
+        <Tab Icon="{
+                                                    FontImage FontFamily=FontAwesome,
+                                                    Glyph={x:Static  Helpers:IconFonts.ViewDashboard},
+                                                    Size=70, Color=#030764}" Title="Dashboard">
+            <ShellContent ContentTemplate="{DataTemplate local:Views.ShopPage}"/>
+        </Tab>
+
+    </FlyoutItem>
+    <FlyoutItem Title="MyTabApp"
+               Shell.TabBarIsVisible="False"
+               FlyoutDisplayOptions="AsMultipleItems">
+
+        <Tab Icon="{
+                                                    FontImage FontFamily=FontAwesome,
+                                                    Glyph={x:Static  Helpers:IconFonts.ClipboardCheckMultiple},
+                                                    Size=70, Color=#0695DA}" Title="Orders">
+            <ShellContent ContentTemplate="{DataTemplate local:Views.OrdersPage}"/>
+        </Tab>
+
+    </FlyoutItem>
+    <FlyoutItem Title="MyTabApp"
+               Shell.TabBarIsVisible="False"
+               FlyoutDisplayOptions="AsMultipleItems">
+
+        <Tab Icon="{
+                                                    FontImage FontFamily=FontAwesome,
+                                                    Glyph={x:Static  Helpers:IconFonts.ClipboardArrowDown},
+                                                    Size=70, Color=#0695DA}" Title="Downloads">
+            <ShellContent ContentTemplate="{DataTemplate local:Views.ShopPage}"/>
+        </Tab>
+
+    </FlyoutItem>
+    <FlyoutItem Title="MyTabApp"
+               Shell.TabBarIsVisible="False"
+               FlyoutDisplayOptions="AsMultipleItems">
+
+        <Tab Icon="{
+                                                    FontImage FontFamily=FontAwesome,
+                                                    Glyph={x:Static  Helpers:IconFonts.MapMarkerRadius},
+                                                    Size=70, Color=#0695DA}" Title="Addresses">
+            <ShellContent ContentTemplate="{DataTemplate local:Views.ShopPage}"/>
+        </Tab>
+
+    </FlyoutItem>
+    <FlyoutItem Title="MyTabApp"
+               Shell.TabBarIsVisible="False"
+               FlyoutDisplayOptions="AsMultipleItems">
+
+        <Tab Icon="{
+                                                    FontImage FontFamily=FontAwesome,
+                                                    Glyph={x:Static  Helpers:IconFonts.AccountBox},
+                                                    Size=70, Color=#0695DA}" Title="Account Detial">
+            <ShellContent ContentTemplate="{DataTemplate local:Views.ShopPage}"/>
+        </Tab>
+
+    </FlyoutItem>
+    <ShellContent Title="Logout" Icon="{
+                                                    FontImage FontFamily=FontAwesome,
+                                                    Glyph={x:Static  Helpers:IconFonts.Logout},
+                                                    Size=70, Color=#0695DA}" ContentTemplate="{DataTemplate local:Views.ShopPage}"/>
+    <!--<TabBar>
         <Tab Title="Shop" Icon="shop.png">
             <ShellContent ContentTemplate="{DataTemplate views:ShopPage}"/>
         </Tab>
@@ -36,6 +105,6 @@
         <Tab Title="Profile" Icon="user.png">
             <ShellContent ContentTemplate="{DataTemplate views:ProfilePage}"/>
         </Tab>
-    </TabBar>
+    </TabBar>-->
 
 </Shell>

@@ -8,6 +8,7 @@ namespace DNKApp.Models
     {
         public string UserId { get; set; }
         public bool Status { get; set; }
+        public string UserEmail { get; set; }
         public string Message { get; set; }
     }
 }

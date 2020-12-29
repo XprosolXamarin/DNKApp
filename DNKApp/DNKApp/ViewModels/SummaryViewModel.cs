@@ -1,6 +1,7 @@
 ﻿using DNKApp.Models;
 using DNKApp.Services;
 using DNKApp.Utlities;
+using DNKApp.Views;
 using Newtonsoft.Json;
 using SQLite;
 using System;
@@ -18,12 +19,16 @@ namespace DNKApp.ViewModels
     {
         private readonly GetBillingDetailbyId _BillingDetailService;
         private readonly LoginService _loginService;
+        private readonly PlaceOrderApi placeOrderApi;
         private SQLiteAsyncConnection _connection;
         private INavigation navigation;
         public List<clsInvoice> _myCollection;
         private string id;
         private string title;
+        public Billing billing { get; set; }
+        public OrderDetailModel order { get; set; }
         private PaymentGetway methods;
+        public List<LineItems> Itemlst { get; set; }
 
         //private bool codcheckbox;
         //private string card_Name;
@@ -59,47 +64,22 @@ namespace DNKApp.ViewModels
         }
        
        
-        public SummaryViewModel(INavigation navigation /*PaymentGetway _paymentGetway*/)
+        public SummaryViewModel(INavigation navigation ,PaymentGetway _paymentGetway)
         {
+            this.methods = _paymentGetway;
+            Itemlst = new List<LineItems>();
             _BillingDetailService = new GetBillingDetailbyId();
+            placeOrderApi=new PlaceOrderApi();
+            billing = new Billing();
             _loginService = new LoginService();
-            //this.codcheckbox = codcheckbox;
-            //this.card_Name = card_Name;
-            //this.card_Number = card_Number;
-            //this.cVV = cVV;
-            //this.methods = _paymentGetway;
-
+            order = new OrderDetailModel();
             this.navigation = navigation;
             _connection = Xamarin.Forms.DependencyService.Get<ISQLiteDb>().GetConnection();
             _ = getallcaetitem();
-            LoginExist();
+           
         }
 
-        public async void LoginExist()
-        {
-
-            try
-            {
-                var username = Utilty.GetSecureStorageValueFor(Utilty.UserName);
-                var password = Utilty.GetSecureStorageValueFor(Utilty.Password);
-                var response1 = await _loginService.UserLoginAsync(username.Result, password.Result);
-                if (response1.Status)
-                {
-
-                    await _BillingDetailService.GetDetailAsync(response1.UserId);
-
-                }
-                else
-                {
-                    
-                }
-            }
-            catch (Exception ex)
-            {
-                // Possible that device doesn't support secure storage on device.
-            }
-
-        }
+       
 
         private async Task getallcaetitem()
         {
@@ -107,8 +87,7 @@ namespace DNKApp.ViewModels
             {
                 myCollection = await _connection.Table<clsInvoice>().ToListAsync();
                 invoice = new ObservableCollection<clsInvoice>(myCollection);
-
-               
+                
 
             }
             catch (Exception ex)
@@ -123,69 +102,85 @@ namespace DNKApp.ViewModels
             {
                 return new Xamarin.Forms.Command(async () =>
                 {
-                OrderDetailModel order = new OrderDetailModel();
-                myCollection = await _connection.Table<clsInvoice>().ToListAsync();
-                foreach (var b in myCollection)
-                {
-                        List<LineItems> a = new List<LineItems>();
-                        a.Add(new LineItems
+                    myCollection = await _connection.Table<clsInvoice>().ToListAsync();
+                    foreach (var b in myCollection)
+                    {
+                        
+                        Itemlst.Add(new LineItems
                         {
                             product_id = b.id,
                             quantity = b.quantity,
-                            tax_class = "1",
-                            subtotal = "300",
-                            subtotal_tax = "2",
-                            total = "500",
-                            total_tax = "10",
+                            tax_class = "0",
+                            subtotal = b.price,
+                            subtotal_tax = "0.00",
+                            total = b.price,
+                            total_tax = "0.00",
                             price = b.SRate,
 
 
                         });
-                        order.line_items = new List<LineItems>(a);
+                        
 
                     }
 
-                   
-                    //if (codcheckbox && card_Name != null && card_Number != null && cVV != null)
-                    //{
 
-                    //}
-                    //else if (codcheckbox)
-                    //{
-                    //    order.payment_method = "cod";
-                    //    order.payment_method = "Cash on delivery";
-                    //    order.set_paid = false;
-                    //}
-                    //else
-                    //{
+                    try
+                    {
+                        var username = Utilty.GetSecureStorageValueFor(Utilty.UserName);
+                        var password = Utilty.GetSecureStorageValueFor(Utilty.Password);
+                        var response1 = await _loginService.UserLoginAsync(username.Result, password.Result);
+                        if (response1.Status)
+                        {
 
-                    //}
-
-                    order.payment_method = id;
-                    order.payment_method_title = title;
-
-                    // await _placeorderapi.OrderAsync();
-
-                    
-
-                    order.billing = await _connection.Table<Billing>().FirstAsync();
-                    order.shipping = await _connection.Table<Shipping>().FirstAsync();
-                    //order.line_items = await _connection.Table<LineItems>().ToListAsync();
-                    
-                    var Httpclient = new HttpClient();
-
-                    var url = "https://qepdns.com/wp-json/wc/v3/orders?consumer_key=ck_c822f95423287f7ccd15df53b7e56d3de3d5468d&consumer_secret=cs_e1f61450a3c4a7430ce1f493b116912ed60929b5";
-
-                    var uri = new Uri(string.Format(url, string.Empty));
-
-                    var json = JsonConvert.SerializeObject(order);
-
-                    var content = new StringContent(json, Encoding.UTF8, "application/json");
-
-                    HttpResponseMessage response = null;
-
-                    response = await Httpclient.PostAsync(uri, content);
-
+                            billing = await _BillingDetailService.GetDetailAsync(response1.UserId);
+                            order.payment_method = methods.id;
+                            order.payment_method_title = methods.title;
+                            order.customer_id = Convert.ToInt32(response1.UserId);
+                            order.billing = billing;
+                            order.shipping = new Shipping
+                            {
+                                first_name = billing.first_name,
+                                last_name = billing.last_name,
+                                company = billing.company,
+                                address_1 = billing.address_1,
+                                address_2 = billing.address_2,
+                                city = billing.city,
+                                state = billing.state,
+                                postcode = billing.postcode,
+                                country = billing.country
+                            };
+                            order.line_items = new List<LineItems>(Itemlst);
+                            
+                           string orderid= await placeOrderApi.PlaceOrderAsync(order);
+                          await navigation.PushModalAsync(new OrderAcceptedPage(orderid));
+                        }
+                        else
+                        {
+                            order.payment_method = methods.id;
+                            order.payment_method_title = methods.title;
+                            order.customer_id = 0;
+                            order.billing= await _connection.Table<Billing>().FirstAsync();
+                            order.shipping = new Shipping
+                            {
+                                first_name = order.billing.first_name,
+                                last_name = order.billing.last_name,
+                                company = order.billing.company,
+                                address_1 = order.billing.address_1,
+                                address_2 = order.billing.address_2,
+                                city = order.billing.city,
+                                state = order.billing.state,
+                                postcode = order.billing.postcode,
+                                country = order.billing.country
+                            };
+                            order.line_items = new List<LineItems>(Itemlst);
+                            string orderid = await placeOrderApi.PlaceOrderAsync(order);
+                            await navigation.PushModalAsync(new OrderAcceptedPage(orderid));
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        // Possible that device doesn't support secure storage on device.
+                    }
                 });
             }
         }

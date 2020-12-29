@@ -8,6 +8,7 @@ namespace DNKApp.Models
 {
    public class OrderDetailModel
     {
+        
         //[PrimaryKey, AutoIncrement]
         //public int id { get; set; }
         //public int parent_id => 0;
@@ -29,7 +30,7 @@ namespace DNKApp.Models
         //public string total { get; set; }
         //public string total_tax { get; set; }
         //public Boolean prices_include_tax { get; set; }
-        // public int customer_id => 0;
+         public int customer_id { get; set; }
         //public string customer_ip_address { get; set; }
         //public string customer_user_agent { get; set; }
         //public string customer_note { get; set; }
@@ -48,7 +49,7 @@ namespace DNKApp.Models
        // public List<MetaDate> meta_data { get; set; }
         public List<LineItems> line_items { get; set; }
        // public List<TaxLine> tax_lines { get; set; }
-        public List<ShippingLine> shipping_lines { get; set; }
+       // public List<ShippingLine> shipping_lines { get; set; }
        // public List<FeeLine> fee_lines { get; set; }
        // public List<CouponLine> coupon_lines { get; set; }
       //  public List<Refund> refunds { get; set; }
@@ -58,10 +59,10 @@ namespace DNKApp.Models
     {
         public string first_name { get; set; }
         public string last_name { get; set; }
-        public string company => "";
-       
+        public string company { get; set; }
+
         public string address_1 { get; set; }
-        public string address_2 => "";
+        public string address_2 { get; set; }
         public string city { get; set; }
         
         public string state { get; set; }
@@ -76,9 +77,9 @@ namespace DNKApp.Models
     {
         public string first_name { get; set; }
         public string last_name { get; set; }
-       // public string company { get; set; }
+        public string company { get; set; }
         public string address_1 { get; set; }
-        public string address_2 => "";
+        public string address_2 { get; set; } 
         public string city { get; set; }
         public string state { get; set; }
         public string postcode { get; set; }
@@ -121,13 +122,14 @@ namespace DNKApp.Models
     public class ShippingLine
     {
         //public int id { get; set; }
-        public string method_id { get; set; }
-        public string method_title { get; set; }
-       
-        public string total { get; set; }
+        public string method_id=>"flat_rate";
+        public string method_title => "Flat Rate";
+
+
+        public string total => "10.00";
         //public string total_tax { get; set; }
         //public List<Taxes> taxes { get; set; }
-       // public List<MetaDate> meta_data { get; set; }
+        // public List<MetaDate> meta_data { get; set; }
     }
     public class FeeLine
     {

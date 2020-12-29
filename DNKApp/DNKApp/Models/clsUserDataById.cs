@@ -16,8 +16,8 @@ namespace DNKApp.Models
         public string last_name { get; set; }
         public string role { get; set; }
         public string username { get; set; }
-        public List<Billing1> billing { get; set; }
-        public List<Shipping1> shipping { get; set; }
+        public IList<Billing1> billing { get; set; }
+        public IList<Shipping1> shipping { get; set; }
         public bool is_paying_customer { get; set; }
         public ImageSource avatar_url { get; set; }
     }

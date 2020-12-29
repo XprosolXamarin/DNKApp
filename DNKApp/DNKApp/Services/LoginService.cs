@@ -45,14 +45,19 @@ namespace DNKApp.Services
                 {
                   Message = (string)jObject1.GetValue("msg"),
                 UserId = (string)jObject1.GetValue("user_id"),
-                Status=status,
+                UserEmail= (string)jObject1.GetValue("email"),
+                Status =status,
             };
-                
+                string UserEmail = (string)jObject1.GetValue("email");
+                string display_name = (string)jObject1.GetValue("display_name");
                 if (status)
                 {
                     await Utilty.SetSecureStorageValue(Utilty.UserName, user_login);
+                    await Utilty.SetSecureStorageValue(Utilty.display_name, display_name);
                     await Utilty.SetSecureStorageValue(Utilty.Password, password);
                     await Utilty.SetSecureStorageValue(Utilty.UserId, id);
+                    await Utilty.SetSecureStorageValue(Utilty.UserEmail, UserEmail);
+                    
                    
                     
 

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DNKApp.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,9 +13,10 @@ namespace DNKApp.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class OrderAcceptedPage : ContentPage
     {
-        public OrderAcceptedPage()
+        public OrderAcceptedPage(string orderid)
         {
             InitializeComponent();
+            BindingContext = new OrderAcceptedviewModel(orderid);
         }
     }
 }

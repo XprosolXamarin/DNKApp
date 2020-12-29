@@ -1,4 +1,5 @@
-﻿using DNKApp.ViewModels;
+﻿using DNKApp.Utlities;
+using DNKApp.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,15 +9,15 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace DNKApp.Views
+namespace DNKApp
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class OrderDetailPage : ContentPage
+    public partial class HeaderContentView : ContentView
     {
-        public OrderDetailPage(Models.PaymentGetway methods)
+        public  HeaderContentView()
         {
             InitializeComponent();
-            BindingContext = new SummaryViewModel(Navigation,methods);
+            BindingContext = new HeaderContentViewModel();
         }
     }
 }
