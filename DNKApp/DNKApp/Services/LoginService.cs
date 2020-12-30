@@ -40,7 +40,7 @@ namespace DNKApp.Services
                var responseContent1 = await response.Content.ReadAsStringAsync();
                 var jObject1 = JObject.Parse(responseContent1);
               bool  status = (bool)jObject1.GetValue("status");
-              string  id = (string)jObject1.GetValue("id");
+              string  id = (string)jObject1.GetValue("user_id");
                 res =new clsLoginResponse()
                 {
                   Message = (string)jObject1.GetValue("msg"),

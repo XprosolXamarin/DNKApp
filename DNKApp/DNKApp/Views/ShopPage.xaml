@@ -2,7 +2,23 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
              xmlns:cv="clr-namespace:CarouselView.FormsPlugin.Abstractions;assembly=CarouselView.FormsPlugin.Abstractions" xmlns:panacake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
-             x:Class="DNKApp.Views.ShopPage">
+             x:Class="DNKApp.Views.ShopPage"
+             Title="Dashboard"
+            >
+    
+    <ContentPage.ToolbarItems>
+       
+        <ToolbarItem  Grid.Row="0" Text="Welcome"
+                 
+                 Order="Default"
+                 Priority="1" />
+        
+
+        <ToolbarItem Grid.Row="1" Text="{Binding UserName, Mode=TwoWay}"
+                
+                 Order="Default"
+                 Priority="0" />
+    </ContentPage.ToolbarItems>
     <Grid HorizontalOptions="FillAndExpand" VerticalOptions="StartAndExpand">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>

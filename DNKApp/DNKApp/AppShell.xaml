@@ -35,7 +35,7 @@
         <Tab Icon="{
                                                     FontImage FontFamily=FontAwesome,
                                                     Glyph={x:Static  Helpers:IconFonts.ViewDashboard},
-                                                    Size=70, Color=#030764}" Title="Dashboard">
+                                                    Size=70, Color={StaticResource NormalColor}}" Title="Dashboard">
             <ShellContent ContentTemplate="{DataTemplate local:Views.ShopPage}"/>
         </Tab>
 
@@ -47,7 +47,7 @@
         <Tab Icon="{
                                                     FontImage FontFamily=FontAwesome,
                                                     Glyph={x:Static  Helpers:IconFonts.ClipboardCheckMultiple},
-                                                    Size=70, Color=#0695DA}" Title="Orders">
+                                                    Size=70, Color={StaticResource NormalColor}}" Title="Orders">
             <ShellContent ContentTemplate="{DataTemplate local:Views.OrdersPage}"/>
         </Tab>
 
@@ -59,7 +59,7 @@
         <Tab Icon="{
                                                     FontImage FontFamily=FontAwesome,
                                                     Glyph={x:Static  Helpers:IconFonts.ClipboardArrowDown},
-                                                    Size=70, Color=#0695DA}" Title="Downloads">
+                                                    Size=70, Color={StaticResource NormalColor}}" Title="Downloads">
             <ShellContent ContentTemplate="{DataTemplate local:Views.ShopPage}"/>
         </Tab>
 
@@ -71,8 +71,8 @@
         <Tab Icon="{
                                                     FontImage FontFamily=FontAwesome,
                                                     Glyph={x:Static  Helpers:IconFonts.MapMarkerRadius},
-                                                    Size=70, Color=#0695DA}" Title="Addresses">
-            <ShellContent ContentTemplate="{DataTemplate local:Views.ShopPage}"/>
+                                                    Size=70, Color={StaticResource NormalColor}}" Title="Addresses">
+            <ShellContent ContentTemplate="{DataTemplate local:Views.AddressesPage}"/>
         </Tab>
 
     </FlyoutItem>
@@ -83,15 +83,27 @@
         <Tab Icon="{
                                                     FontImage FontFamily=FontAwesome,
                                                     Glyph={x:Static  Helpers:IconFonts.AccountBox},
-                                                    Size=70, Color=#0695DA}" Title="Account Detial">
-            <ShellContent ContentTemplate="{DataTemplate local:Views.ShopPage}"/>
+                                                    Size=70, Color={StaticResource NormalColor}}" Title="Account Details">
+            <ShellContent ContentTemplate="{DataTemplate local:Views.AccountDetails}"/>
+        </Tab>
+
+    </FlyoutItem>
+    <FlyoutItem Title="MyTabApp"
+               Shell.TabBarIsVisible="False"
+               FlyoutDisplayOptions="AsMultipleItems">
+
+        <Tab Icon="{
+                                                    FontImage FontFamily=FontAwesome,
+                                                    Glyph={x:Static  Helpers:IconFonts.Key},
+                                                    Size=70, Color={StaticResource NormalColor}}" Title="Change Password">
+            <ShellContent ContentTemplate="{DataTemplate local:Views.UpdatePasswordPage}"/>
         </Tab>
 
     </FlyoutItem>
     <ShellContent Title="Logout" Icon="{
                                                     FontImage FontFamily=FontAwesome,
                                                     Glyph={x:Static  Helpers:IconFonts.Logout},
-                                                    Size=70, Color=#0695DA}" ContentTemplate="{DataTemplate local:Views.ShopPage}"/>
+                                                    Size=70, Color={StaticResource NormalColor}}" ContentTemplate="{DataTemplate local:Views.ShopPage}"/>
     <!--<TabBar>
         <Tab Title="Shop" Icon="shop.png">
             <ShellContent ContentTemplate="{DataTemplate views:ShopPage}"/>

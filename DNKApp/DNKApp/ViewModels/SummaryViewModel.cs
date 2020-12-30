@@ -25,7 +25,7 @@ namespace DNKApp.ViewModels
         public List<clsInvoice> _myCollection;
         private string id;
         private string title;
-        public Billing billing { get; set; }
+        public GetDetailById getDetailById { get; set; }
         public OrderDetailModel order { get; set; }
         private PaymentGetway methods;
         public List<LineItems> Itemlst { get; set; }
@@ -70,7 +70,7 @@ namespace DNKApp.ViewModels
             Itemlst = new List<LineItems>();
             _BillingDetailService = new GetBillingDetailbyId();
             placeOrderApi=new PlaceOrderApi();
-            billing = new Billing();
+            getDetailById = new GetDetailById();
             _loginService = new LoginService();
             order = new OrderDetailModel();
             this.navigation = navigation;
@@ -132,23 +132,13 @@ namespace DNKApp.ViewModels
                         if (response1.Status)
                         {
 
-                            billing = await _BillingDetailService.GetDetailAsync(response1.UserId);
+                            getDetailById = await _BillingDetailService.GetDetailAsync(response1.UserId);
                             order.payment_method = methods.id;
                             order.payment_method_title = methods.title;
                             order.customer_id = Convert.ToInt32(response1.UserId);
-                            order.billing = billing;
-                            order.shipping = new Shipping
-                            {
-                                first_name = billing.first_name,
-                                last_name = billing.last_name,
-                                company = billing.company,
-                                address_1 = billing.address_1,
-                                address_2 = billing.address_2,
-                                city = billing.city,
-                                state = billing.state,
-                                postcode = billing.postcode,
-                                country = billing.country
-                            };
+                            order.billing = getDetailById.billing;
+                            order.shipping = getDetailById.shipping;
+                            
                             order.line_items = new List<LineItems>(Itemlst);
                             
                            string orderid= await placeOrderApi.PlaceOrderAsync(order);

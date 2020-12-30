@@ -167,4 +167,14 @@ namespace DNKApp.Models
         //public string shipping_tax_total { get; set; }
         public List<MetaDate> meta_data { get; set; }
     }
+    public class GetDetailById
+    {
+        public string first_name { get; set; }
+        public string last_name { get; set; }
+        public string username { get; set; }
+        public string email { get; set; }
+        public Billing billing { get; set; }
+        public Shipping shipping { get; set; }
+
+    }
 }

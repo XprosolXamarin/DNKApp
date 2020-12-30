@@ -1,5 +1,6 @@
 ﻿using DNKApp.Models;
 using DNKApp.Services;
+using DNKApp.Utlities;
 using DNKApp.Views;
 using Rg.Plugins.Popup.Extensions;
 using System;
@@ -41,6 +42,15 @@ namespace DNKApp.ViewModels
                 OnPropertyChanged();
             }
         }
+        private string _UserName;
+
+        public string UserName
+        {
+            get { return _UserName; }
+            set { _UserName = value;
+                OnPropertyChanged();
+            }
+        }
 
         private ObservableCollection<Category> _MyCollections { get; set; }
         public ObservableCollection<Category> MyCollections
@@ -73,13 +83,15 @@ namespace DNKApp.ViewModels
         public List<Product> TrendsList { get => GetTrends(); }
         public ShopPageViewModel(INavigation navigation)
         {
+           
             this.navigation = navigation;
             _itemlistapi = new ItemsListApi();
             _categoriesService = new CategoriesService();
             Isbusy = true;
-            _ = GetCategoriesAsync();
-            _ = GetListOfItemsAsync();
             
+            _ = GetListOfItemsAsync();
+            _ = GetCategoriesAsync();
+
         }
          private async Task GetCategoriesAsync()
         {
@@ -89,8 +101,8 @@ namespace DNKApp.ViewModels
             if (current == NetworkAccess.Internet)
             {
                 MyCollections = await _categoriesService.GetListofCategories();
+                Isbusy = false;
 
-                
             }
             else
             {
@@ -100,6 +112,7 @@ namespace DNKApp.ViewModels
         }
         private async Task GetListOfItemsAsync()
         {
+            UserName =await Utilty.GetSecureStorageValueFor(Utilty.display_name);
             //Isbusy = true;
 
             CollectionsList = new ObservableCollection<Product>();
@@ -109,7 +122,7 @@ namespace DNKApp.ViewModels
             {
                 CollectionsList = await _itemlistapi.GetListofItems();
                  
-                Isbusy = false;
+                
             }
             else
             {
