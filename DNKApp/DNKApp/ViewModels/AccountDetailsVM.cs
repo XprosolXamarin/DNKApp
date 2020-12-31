@@ -29,10 +29,10 @@ namespace DNKApp.ViewModels
         {
             string id = await Utilty.GetSecureStorageValueFor(Utilty.UserId);
             getDetailById = await _BillingDetailService.GetDetailAsync(id);
-            clsUpdateAccount.FName = getDetailById.first_name;
-            clsUpdateAccount.LName = getDetailById.last_name;
+            clsUpdateAccount.first_name = getDetailById.first_name;
+            clsUpdateAccount.last_name = getDetailById.last_name;
             clsUpdateAccount.username = getDetailById.username;
-            clsUpdateAccount.Email = getDetailById.email;
+            clsUpdateAccount.email = getDetailById.email;
         }
 
         public ICommand SaveAccountchangesCommand

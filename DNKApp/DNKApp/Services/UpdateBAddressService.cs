@@ -1,4 +1,6 @@
 ﻿using DNKApp.Models;
+using DNKApp.Utlities;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
@@ -14,26 +16,26 @@ namespace DNKApp.Services
     {
         internal async Task UpdateBillingAddressAsync(Billing billing)
         {
+            string id = await Utilty.GetSecureStorageValueFor(Utilty.UserId);
             var Httpclient = new HttpClient();
 
-            var url1 = "http://qepdns.com/api/changepassword.php?user_id=";
-            var uri1 = new Uri(string.Format(url1, string.Empty));
+            var url = Constants.BaseApiAddress + "wp-json/wc/v3/customers/" + id + Constants.Consumer_Key;
 
+            var uri = new Uri(string.Format(url, string.Empty));
+
+            var json = JsonConvert.SerializeObject(billing);
+
+            var content = new StringContent(json, Encoding.UTF8, "application/json");
 
             HttpResponseMessage response = null;
-            response = await Httpclient.GetAsync(uri1);
 
+            response = await Httpclient.PutAsync(uri, content);
             if (response.StatusCode == HttpStatusCode.OK)
-
             {
+                var responseContent = await response.Content.ReadAsStringAsync();
+                var jObject = JObject.Parse(responseContent);
 
 
-
-                var responseContent1 = await response.Content.ReadAsStringAsync();
-                var jObject1 = JObject.Parse(responseContent1);
-
-                string msg = (string)jObject1.GetValue("msg");
-                await Application.Current.MainPage.DisplayAlert("", msg, "Ok");
             }
         }
     }

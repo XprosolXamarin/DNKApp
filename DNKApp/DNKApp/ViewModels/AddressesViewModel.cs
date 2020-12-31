@@ -47,7 +47,8 @@ namespace DNKApp.ViewModels
             string id = await Utilty.GetSecureStorageValueFor(Utilty.UserId);
 
             getDetailById = await _BillingDetailService.GetDetailAsync(id);
-            BillingAddress = getDetailById.billing.address_1+","+ getDetailById.billing.address_2 + "," + getDetailById.billing.city + "," + getDetailById.billing.state + "," + getDetailById.billing.country;
+            BillingAddress = getDetailById.billing.address_1+ getDetailById.billing.address_2 + "," + getDetailById.billing.city + "," + getDetailById.billing.state + "," + getDetailById.billing.country;
+            ShippingAddress= getDetailById.shipping.address_1  + getDetailById.shipping.address_2 + "," + getDetailById.shipping.city + "," + getDetailById.shipping.state + "," + getDetailById.shipping.country;
         }
         public Command NavigateBillingAdressPage
         {
@@ -55,7 +56,18 @@ namespace DNKApp.ViewModels
             {
                 return new Command(() =>
                 {
-                    Application.Current.MainPage.Navigation.PushAsync(new BillingAdressPage());
+                    Application.Current.MainPage.Navigation.PushAsync(new BillingAdressPage(getDetailById.billing));
+
+                });
+            }
+        }
+        public Command NavigateShippingAdressPage
+        {
+            get
+            {
+                return new Command(() =>
+                {
+                    Application.Current.MainPage.Navigation.PushAsync(new ShippingAddressPage(getDetailById.shipping));
 
                 });
             }

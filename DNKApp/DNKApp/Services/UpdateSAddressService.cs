@@ -11,18 +11,18 @@ using System.Threading.Tasks;
 
 namespace DNKApp.Services
 {
-    public class UpdateADetailsService
+   public class UpdateSAddressService
     {
-        internal async Task AccountDetailsAsync(clsUpdateAccountDetail clsUpdateAccount)
+        internal async Task UpdateShippingAddressAsync(Shipping shipping)
         {
             string id = await Utilty.GetSecureStorageValueFor(Utilty.UserId);
             var Httpclient = new HttpClient();
 
-            var url =Constants.BaseApiAddress+ "wp-json/wc/v3/customers/"+id + Constants.Consumer_Key;
+            var url = Constants.BaseApiAddress + "wp-json/wc/v3/customers/" + id + Constants.Consumer_Key;
 
             var uri = new Uri(string.Format(url, string.Empty));
 
-            var json = JsonConvert.SerializeObject(clsUpdateAccount);
+            var json = JsonConvert.SerializeObject(shipping);
 
             var content = new StringContent(json, Encoding.UTF8, "application/json");
 
@@ -33,10 +33,9 @@ namespace DNKApp.Services
             {
                 var responseContent = await response.Content.ReadAsStringAsync();
                 var jObject = JObject.Parse(responseContent);
-               
+
 
             }
-           
         }
     }
 }

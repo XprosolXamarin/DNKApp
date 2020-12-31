@@ -41,8 +41,9 @@
                 Grid.Row="2"
                 Grid.Column="1"
                 Padding="0"
+                Command="{Binding NavigateShippingAdressPage}"
                 TextColor="{StaticResource NormalColor}"/>
-        <Label Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Text="12, Bay brook, Sharps Rd, Keilor East, Melbourne, Australia" FontFamily="ThemeFont" TextColor="Black" FontSize="Small"/>
+        <Label Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Text="{Binding ShippingAddress}" FontFamily="ThemeFont" TextColor="Black" FontSize="Small"/>
         <!--<StackLayout Orientation="Horizontal" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"  >
             <Label Text="First Name:" FontSize="Small" TextColor="Black"
                FontFamily="ThemeFontBold" />

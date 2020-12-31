@@ -7,35 +7,36 @@ namespace DNKApp.Models
 {
    public class clsUpdateAccountDetail:BaseViewModel
     {
-        private string _FName;
+        private string _first_name;
 
-        public string FName
+        public string first_name
         {
             get 
             {
-                return _FName; 
+                return _first_name; 
             }
             set
             {
-                _FName = value;
+                _first_name = value;
                 OnPropertyChanged();
             }
         }
 
-        private string _LName;
+        private string _last_name;
 
-        public string LName
+        public string last_name
         {
             get
             {
-                return _LName;
+                return _last_name;
             }
             set
             {
-                _LName = value;
+                _last_name = value;
                 OnPropertyChanged();
             }
         }
+
         private string _username;
 
         public string username
@@ -50,17 +51,18 @@ namespace DNKApp.Models
                 OnPropertyChanged();
             }
         }
-        private string _Email;
 
-        public string Email
+        private string _email;
+
+        public string email
         {
             get
             {
-                return _Email;
+                return _email;
             }
             set
             {
-                _Email = value;
+                _email = value;
                 OnPropertyChanged();
             }
         }

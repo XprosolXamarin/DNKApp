@@ -10,26 +10,26 @@
                 <!-- start ADDRESS -->
                 <StackLayout Orientation="Horizontal">
                     <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand">
-                        <Entry Placeholder="First Name" Text="{Binding first_name}" TextColor="Black" HorizontalOptions="FillAndExpand" FontFamily="ThemeFont"/>
+                        <Entry Placeholder="First Name" Text="{Binding billing.first_name}" TextColor="Black" HorizontalOptions="FillAndExpand" FontFamily="ThemeFont"/>
                     </StackLayout>
                     <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand">
-                        <Entry Placeholder="Last Name" Text="{Binding last_name}" TextColor="Black" HorizontalOptions="FillAndExpand" FontFamily="ThemeFont"/>
+                        <Entry Placeholder="Last Name" Text="{Binding billing.last_name}" TextColor="Black" HorizontalOptions="FillAndExpand" FontFamily="ThemeFont"/>
                     </StackLayout>
                 </StackLayout>
-                <Entry Placeholder="Company Name(Optional)" Text="{Binding company}" TextColor="Black" HorizontalOptions="FillAndExpand" FontFamily="ThemeFont"/>
-                <Entry Placeholder="Country/Region" Text="{Binding country}" TextColor="Black" HorizontalOptions="FillAndExpand" FontFamily="ThemeFont"/>
-                <Entry Placeholder="Street Address" Text="{Binding address_1}" TextColor="Black" HorizontalOptions="FillAndExpand" FontFamily="ThemeFont"/>
-                <Entry Placeholder="Town/City" Text="{Binding city}" TextColor="Black" HorizontalOptions="FillAndExpand" FontFamily="ThemeFont"/>
+                <Entry Placeholder="Company Name(Optional)" Text="{Binding billing.company}" TextColor="Black" HorizontalOptions="FillAndExpand" FontFamily="ThemeFont"/>
+                <Entry Placeholder="Country/Region" Text="{Binding billing.country}" TextColor="Black" HorizontalOptions="FillAndExpand" FontFamily="ThemeFont"/>
+                <Entry Placeholder="Street Address" Text="{Binding billing.address_1}" TextColor="Black" HorizontalOptions="FillAndExpand" FontFamily="ThemeFont"/>
+                <Entry Placeholder="Town/City" Text="{Binding billing.city}" TextColor="Black" HorizontalOptions="FillAndExpand" FontFamily="ThemeFont"/>
                 <StackLayout Orientation="Horizontal">
                     <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand">
-                        <Entry Placeholder="State" Text="{Binding state}" TextColor="Black" HorizontalOptions="FillAndExpand" FontFamily="ThemeFont"/>
+                        <Entry Placeholder="State" Text="{Binding billing.state}" TextColor="Black" HorizontalOptions="FillAndExpand" FontFamily="ThemeFont"/>
                     </StackLayout>
                     <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand">
-                        <Entry Placeholder="Postcode/ZIP" Text="{Binding postcode}" TextColor="Black" HorizontalOptions="FillAndExpand" FontFamily="ThemeFont"/>
+                        <Entry Placeholder="Postcode/ZIP" Text="{Binding billing.postcode}" TextColor="Black" HorizontalOptions="FillAndExpand" FontFamily="ThemeFont"/>
                     </StackLayout>
                 </StackLayout>
-                <Entry Placeholder="Phone" Text="{Binding phone}" Keyboard="Telephone" TextColor="Black" HorizontalOptions="FillAndExpand" FontFamily="ThemeFont"/>
-                <Entry Placeholder="Email" Text="{Binding email}" Keyboard="Email" TextColor="Black" HorizontalOptions="FillAndExpand" FontFamily="ThemeFont"/>
+                <Entry Placeholder="Phone" Text="{Binding billing.phone}" Keyboard="Telephone" TextColor="Black" HorizontalOptions="FillAndExpand" FontFamily="ThemeFont"/>
+                <Entry Placeholder="Email" Text="{Binding billing.email}" Keyboard="Email" TextColor="Black" HorizontalOptions="FillAndExpand" FontFamily="ThemeFont"/>
                 <!-- end ADDRESS -->
 
                 <!-- start BOTTOM BUTTONS -->

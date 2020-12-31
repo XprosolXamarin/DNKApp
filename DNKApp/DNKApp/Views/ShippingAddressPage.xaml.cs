@@ -1,4 +1,5 @@
-﻿using DNKApp.ViewModels;
+﻿using DNKApp.Models;
+using DNKApp.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,12 +12,12 @@ using Xamarin.Forms.Xaml;
 namespace DNKApp.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class AccountDetails : ContentPage
+    public partial class ShippingAddressPage : ContentPage
     {
-        public AccountDetails()
+        public ShippingAddressPage(Shipping shipping)
         {
             InitializeComponent();
-            BindingContext = new AccountDetailsVM();
+            BindingContext = new ShippingAddressVM(shipping);
         }
     }
 }

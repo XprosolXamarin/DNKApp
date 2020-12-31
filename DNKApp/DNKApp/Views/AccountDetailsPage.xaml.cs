@@ -11,12 +11,12 @@ using Xamarin.Forms.Xaml;
 namespace DNKApp.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class BillingAdressPage : ContentPage
+    public partial class AccountDetailsPage : ContentPage
     {
-        public BillingAdressPage(Models.Billing billing)
+        public AccountDetailsPage()
         {
             InitializeComponent();
-            BindingContext = new BillingAdressVM(billing);
+           BindingContext = new AccountDetailsVM();
         }
     }
 }

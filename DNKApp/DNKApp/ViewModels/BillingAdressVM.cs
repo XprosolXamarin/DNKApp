@@ -12,9 +12,11 @@ namespace DNKApp.ViewModels
     {
         public Billing billing { get; set; }
         public readonly UpdateBAddressService updateBilling;
-        public BillingAdressVM()
+        public BillingAdressVM(Billing billings)
         {
             billing = new Billing();
+            this.billing = billings;
+            
             updateBilling = new UpdateBAddressService();
 
         }

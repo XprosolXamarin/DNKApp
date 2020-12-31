@@ -84,7 +84,7 @@
                                                     FontImage FontFamily=FontAwesome,
                                                     Glyph={x:Static  Helpers:IconFonts.AccountBox},
                                                     Size=70, Color={StaticResource NormalColor}}" Title="Account Details">
-            <ShellContent ContentTemplate="{DataTemplate local:Views.AccountDetails}"/>
+            <ShellContent ContentTemplate="{DataTemplate local:Views.AccountDetailsPage}"/>
         </Tab>
 
     </FlyoutItem>
